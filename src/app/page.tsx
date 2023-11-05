@@ -1,7 +1,7 @@
-
+import Button from '@mui/material/Button';
 
 export default function Home() {
   return (
-    <p>ProDriver</p>
+    <Button variant="contained">Hello world</Button>
   )
 }
