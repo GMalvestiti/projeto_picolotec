@@ -25,5 +25,3 @@ export default function SideNavHeader({
     </DrawerHeader>
   );
 }
-
-export { DrawerHeader };
