@@ -13,6 +13,6 @@
 
 ## Deployment
 
-Para acessar e testar:
+Para acessar e utilizar:
 
 - [ProDriver](https://projeto-prodriver.vercel.app/)
