@@ -22,6 +22,6 @@ Abra [http://localhost:3000](http://localhost:3000) para ver o resultado.
 
 ## Deployment
 
-Para acessar e utilizar:
+Para acessar e testar:
 
 - [ProDriver](https://www.google.com.br/)
