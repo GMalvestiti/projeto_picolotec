@@ -12,3 +12,8 @@ export interface SideNavItemsProps {
     icon: React.ReactNode;
   }[];
 }
+
+export interface TopBarProps {
+  open: boolean;
+  handleDrawerOpen: () => void;
+}

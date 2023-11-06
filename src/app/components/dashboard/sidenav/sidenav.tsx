@@ -1,19 +1,17 @@
-import { SideNavProps } from "@/app/lib/interfaces";
-
-import Divider from "@mui/material/Divider";
-import MuiDrawer from "@mui/material/Drawer";
-import { CSSObject, styled, Theme } from "@mui/material/styles";
-
-import SpaceDashboardOutlinedIcon from '@mui/icons-material/SpaceDashboardOutlined';
-import CalculateOutlinedIcon from '@mui/icons-material/CalculateOutlined';
+import { SideNavProps } from '@/app/lib/interfaces';
 import AccountBalanceWalletOutlinedIcon from '@mui/icons-material/AccountBalanceWalletOutlined';
-import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
-import DirectionsCarFilledOutlinedIcon from '@mui/icons-material/DirectionsCarFilledOutlined';
 import AccountBoxOutlinedIcon from '@mui/icons-material/AccountBoxOutlined';
 import AddLocationAltOutlinedIcon from '@mui/icons-material/AddLocationAltOutlined';
+import CalculateOutlinedIcon from '@mui/icons-material/CalculateOutlined';
+import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
+import DirectionsCarFilledOutlinedIcon from '@mui/icons-material/DirectionsCarFilledOutlined';
+import SpaceDashboardOutlinedIcon from '@mui/icons-material/SpaceDashboardOutlined';
+import Divider from '@mui/material/Divider';
+import MuiDrawer from '@mui/material/Drawer';
+import { CSSObject, styled, Theme } from '@mui/material/styles';
 
-import SideNavHeader from "./sidenav-header";
-import SideNavItems from "./sidenav-items";
+import SideNavHeader from './sidenav-header';
+import SideNavItems from './sidenav-items';
 
 const drawerWidth = 240;
 
@@ -121,3 +119,5 @@ export default function SideNav({
     </Drawer>
   );
 }
+
+export { drawerWidth };

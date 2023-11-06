@@ -1,14 +1,13 @@
-import Link from "next/link";
+import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
+import { SideNavItemsProps } from '@/app/lib/interfaces';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
 import { useTheme } from '@mui/material/styles';
-
-import { SideNavItemsProps } from "@/app/lib/interfaces";
 
 export default function SideNavItems({
   open,
