@@ -3,6 +3,7 @@
 import { useState } from 'react';
 
 import SideNav from './sidenav';
+import TopBar from './topbar';
 
 export default function SideNavManager() {
   const [open, setOpen] = useState(false);
@@ -16,10 +17,16 @@ export default function SideNavManager() {
   };
 
   return (
-    <SideNav
-      open={open}
-      handleDrawerClose={handleDrawerClose}
-      handleDrawerOpen={handleDrawerOpen}
-    />
+    <>
+      <TopBar
+        open={open}
+        handleDrawerOpen={handleDrawerOpen}
+      />
+      <SideNav
+        open={open}
+        handleDrawerClose={handleDrawerClose}
+        handleDrawerOpen={handleDrawerOpen}
+      />
+    </>
   );
 }
