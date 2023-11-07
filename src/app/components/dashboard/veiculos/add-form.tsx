@@ -43,8 +43,7 @@ export default function VeiculosAddForm() {
   const [makes, setMakes] = useState([""]);
   const [models, setModels] = useState([""]);
   const [disabled, setDisabled] = useState(true);
-  const [selectedInput, setSelectedInput] = useState(undefined);
-  const [selectedValue, setSelectedValue] = useState("");
+  const [selectedInput, setSelectedInput] = useState("");
 
   useEffect(() => {
     async function fetchMakes() {
@@ -103,15 +102,12 @@ export default function VeiculosAddForm() {
               fetchModels(query).then((newModels) => {
                 if (newModels) {
                   setModels(newModels);
+                  setSelectedInput(newModels[0]);
+                  if (disabled) {
+                    setDisabled(false);
+                  }
                 }
               });
-              if (disabled) {
-                setDisabled(false);
-              } else {
-                setModels([""]);
-                setSelectedInput(undefined);
-                setSelectedValue("");
-              }
             }}
             renderOption={(props, option) => {
               return (
@@ -144,9 +140,12 @@ export default function VeiculosAddForm() {
             sx={{ mt: 1 }}
             id="model"
             options={models}
-            value={selectedValue}
+            value={selectedInput}
             inputValue={selectedInput}
             disabled={disabled}
+            onInputChange={async (event, query) => {
+              setSelectedInput(query);
+            }}
             renderOption={(props, option) => {
               return (
                 <li {...props} key={option}>
