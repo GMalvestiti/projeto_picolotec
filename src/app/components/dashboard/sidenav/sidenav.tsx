@@ -1,7 +1,6 @@
 import { SideNavProps } from '@/app/lib/interfaces';
 import AccountBalanceWalletOutlinedIcon from '@mui/icons-material/AccountBalanceWalletOutlined';
 import AccountBoxOutlinedIcon from '@mui/icons-material/AccountBoxOutlined';
-import AddLocationAltOutlinedIcon from '@mui/icons-material/AddLocationAltOutlined';
 import CalculateOutlinedIcon from '@mui/icons-material/CalculateOutlined';
 import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
 import DirectionsCarFilledOutlinedIcon from '@mui/icons-material/DirectionsCarFilledOutlined';
@@ -86,11 +85,6 @@ const items_registro = [
     text: "Clientes",
     href: "/dashboard/clientes",
     icon: <AccountBoxOutlinedIcon />
-  },
-  {
-    text: "Localidades",
-    href: "/dashboard/localidades",
-    icon: <AddLocationAltOutlinedIcon />
   }
 ]
 

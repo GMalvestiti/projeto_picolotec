@@ -1,11 +1,14 @@
-import InputBase from "@mui/material/InputBase";
-import { styled } from "@mui/material/styles";
+"use client";
 
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
+import { SearchBarProps } from "@/app/lib/interfaces";
+
+import { styled } from "@mui/material/styles";
+import Input from "@mui/material/Input";
+
+const StyledInput = styled(Input)(({ theme }) => ({
   color: "inherit",
   "& .MuiInputBase-input": {
     padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create("width"),
     width: "100%",
@@ -18,10 +21,14 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function SearchInput() {
+export default function SearchInput({
+  query,
+  handleQueryChange,
+}: Readonly<SearchBarProps>) {
   return (
-    <StyledInputBase
-      placeholder="Pesquisar..."
+    <StyledInput
+      value={query}
+      onChange={handleQueryChange}
     />
   );
 }
