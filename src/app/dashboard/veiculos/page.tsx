@@ -23,9 +23,10 @@ function changeData(jsonData: any): GridRowsProp {
     let newData = {
       id: count,
       uuid: element.id,
-      col1: element.make,
-      col2: element.model,
-      col3: element.cost,
+      col1: element.description,
+      col2: element.make,
+      col3: element.model,
+      col4: element.cost,
     };
     result.push(newData);
     count++;
@@ -34,12 +35,15 @@ function changeData(jsonData: any): GridRowsProp {
 }
 
 const columns: GridColDef[] = [
-  { field: "col1", headerName: "Marca", flex: 3 },
-  { field: "col2", headerName: "Modelo", flex: 3 },
-  { field: "col3", headerName: "Custo (Km/L)", flex: 3 },
+  { field: "col1", headerName: "Descrição", flex: 3, align: "center", headerAlign: "center" },
+  { field: "col2", headerName: "Marca", flex: 3, align: "center", headerAlign: "center" },
+  { field: "col3", headerName: "Modelo", flex: 3, align: "center", headerAlign: "center" },
+  { field: "col4", headerName: "Custo (Km/L)", flex: 3, align: "center", headerAlign: "center" },
   {
-    field: "col4",
+    field: "col5",
     headerName: "",
+    disableColumnMenu: true,
+    sortable: false,
     flex: 1,
     renderCell: ({ row }: Partial<GridRowParams>) => {
       return (
@@ -55,8 +59,10 @@ const columns: GridColDef[] = [
     },
   },
   {
-    field: "col5",
+    field: "col6",
     headerName: "",
+    disableColumnMenu: true,
+    sortable: false,
     flex: 1,
     renderCell: ({ row }: Partial<GridRowParams>) => {
       return (

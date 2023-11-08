@@ -21,6 +21,6 @@ export default function DataTable({
   rows
 }: Readonly<TableProps>) {
   return (
-    <DataGrid columns={columns} rows={rows} />
+    <DataGrid columns={columns} rows={rows} autoHeight disableRowSelectionOnClick pageSizeOptions={[10, 25, 50]} />
   )
 }
