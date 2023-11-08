@@ -62,7 +62,6 @@ export async function addVeiculo(formData: FormData) {
 
 export async function getCarsData(query: string) {
   noStore();
-  console.log("X");
   try {
     let data;
     if (query == "") {
