@@ -12,13 +12,14 @@ import { GridColDef, GridRowParams, GridRowsProp } from '@mui/x-data-grid';
 import { getCarsData } from '@/app/lib/actions';
 
 function changeData(jsonData: any): GridRowsProp {
+  console.log("B");
   if (jsonData === undefined) {
     const error: GridRowsProp = [];
     return error;
   }
 
   let result: any = [];
-
+  console.log("C");
   let count = 1;
   jsonData.forEach((element: any) => {
     let newData = {
@@ -31,7 +32,7 @@ function changeData(jsonData: any): GridRowsProp {
     result.push(newData);
     count++;
   });
-
+  console.log("D");
   return result;
 }
 
@@ -84,6 +85,8 @@ export default function Page() {
   const handleQueryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(event.target.value);
   };
+
+  console.log("A");
 
   useEffect(() => {
     getCarsData(query).then((jsonData) => {
