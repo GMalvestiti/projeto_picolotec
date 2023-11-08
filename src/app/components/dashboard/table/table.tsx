@@ -1,8 +1,8 @@
-import { TableProps } from "@/app/lib/interfaces";
+import { TableProps } from '@/app/lib/interfaces';
+import { createTheme } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 
 import type {} from '@mui/x-data-grid/themeAugmentation';
-import createTheme from "@mui/material/styles/createTheme";
 
 const theme = createTheme({
   components: {
@@ -16,11 +16,11 @@ const theme = createTheme({
   },
 });
 
-export default function DataTable({ 
+export default function DataTable({
   columns,
-  rows 
+  rows
 }: Readonly<TableProps>) {
   return (
-    <DataGrid rows={rows} columns={columns} />
+    <DataGrid columns={columns} rows={rows} />
   )
 }

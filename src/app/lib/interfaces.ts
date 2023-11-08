@@ -1,6 +1,5 @@
-import { GridColDef } from "@mui/x-data-grid/models/colDef/gridColDef";
-import { GridRowsProp } from "@mui/x-data-grid/models/gridRows";
-import { Dispatch, SetStateAction } from "react";
+import { GridColDef } from '@mui/x-data-grid/models/colDef/gridColDef';
+import { GridRowsProp } from '@mui/x-data-grid/models/gridRows';
 
 export interface SideNavProps {
   open: boolean;
@@ -43,4 +42,8 @@ export interface CarMake {
 
 export interface CarModel {
   model: string;
+}
+
+export interface DeleteCarsProps {
+  uuid: string;
 }
