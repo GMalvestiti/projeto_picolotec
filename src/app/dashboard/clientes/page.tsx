@@ -16,7 +16,7 @@ export default function Page() {
         </Typography>
         <Grid container sx={{ mt: 1 }}>
           <Grid xs={12} sx={{ display: "flex", justifyContent: "left" }}>
-            <SearchBar />
+            
             <Button variant="contained">Adicionar</Button>
           </Grid>
           <Grid xs={12} sx={{ mt: 2 }}>
