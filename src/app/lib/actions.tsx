@@ -1,9 +1,8 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
+import { revalidatePath, unstable_noStore as noStore } from "next/cache";
 import { redirect } from "next/navigation";
 import { z } from "zod";
-import { unstable_noStore as noStore } from "next/cache";
 import { sql } from "@vercel/postgres";
 
 const CarSchema = z.object({
@@ -64,6 +63,7 @@ export async function getCarsData(query: string) {
   noStore();
   try {
     let data;
+    console.log(query);
     if (query == "") {
       data = await sql`SELECT * FROM cars;`;
     } else {
@@ -73,6 +73,8 @@ export async function getCarsData(query: string) {
         WHERE description ILIKE ${query} OR make ILIKE ${query} OR model ILIKE ${query};
       `;
     }
+
+    console.log(data);
 
     data = data.rows;
 
