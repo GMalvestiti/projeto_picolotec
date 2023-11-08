@@ -7,6 +7,7 @@ import { CarMake, CarModel } from '@/app/lib/interfaces';
 import KeyboardBackspaceRoundedIcon from '@mui/icons-material/KeyboardBackspaceRounded';
 import { Autocomplete, Box, Button, Chip, Input, InputLabel, TextField } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
+import Link from 'next/link';
 
 async function fetchModels(query: string) {
   try {
@@ -182,6 +183,7 @@ export default function VeiculosAddForm() {
             href="/dashboard/veiculos"
             fullWidth
             size="large"
+            LinkComponent={Link}
             startIcon={<KeyboardBackspaceRoundedIcon />}
           >
             Voltar
