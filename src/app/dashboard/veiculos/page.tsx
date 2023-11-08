@@ -89,8 +89,6 @@ export default function Page() {
     });
   }, [debouncedValue]);
 
-  console.log(rows);
-
   return (
     <Container component="main" maxWidth="xl" disableGutters sx={{ mb: 4 }}>
       <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: 3 }}>

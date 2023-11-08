@@ -60,22 +60,23 @@ export async function addVeiculo(formData: FormData) {
 }
 
 export async function getCarsData(query: string) {
-  noStore();
   try {
-    let data;
-    console.log(query);
+    const BASE_URL = process.env.BASE_URL;
+
+    let endpoint;
     if (query == "") {
-      data = await sql`SELECT * FROM cars;`;
+      endpoint = `${BASE_URL}/api/car`;
     } else {
-      query = "%" + query + "%";
-      data = await sql`
-        SELECT * FROM cars
-        WHERE description ILIKE ${query} OR make ILIKE ${query} OR model ILIKE ${query};
-      `;
+      endpoint = `${BASE_URL}/api/car?query=${query}`;
     }
 
-    console.log(data);
+    const response = await fetch(endpoint);
 
+    if (!response.ok) {
+      throw new Error(`[ERRO] Falha ao buscar dados. Status: ${response.status}`);
+    }
+
+    let data = await response.json();
     data = data.rows;
 
     return data;
@@ -100,14 +101,14 @@ export async function deleteCars(formData: FormData) {
   const { uuid } = validation.data;
 
   try {
-    if (uuid) {
-      await sql`
-        DELETE FROM cars
-        WHERE id = ${uuid};
-      `;
-    }
+    const BASE_URL = process.env.BASE_URL;
+
+    await fetch(`${BASE_URL}/api/car?uuid=${uuid}`, {
+      method: "DELETE",
+    });
+
   } catch (error) {
-    console.error("[ERRO]: Erro ao tentar deletar carro", error);
+    console.error("[ERRO]: Erro ao tentar deletar carro.", error);
   }
 
   revalidatePath("/dashboard/veiculos");
