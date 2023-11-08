@@ -9,30 +9,14 @@ import DataTable from '@/app/components/dashboard/table/table';
 import { Button, Container, Paper, Typography } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 import { GridColDef, GridRowParams, GridRowsProp } from '@mui/x-data-grid';
-
-async function getCarsData(query: string) {
-  try {
-    let response;
-    if (query == "") {
-      response = await fetch(`/api/car`);
-    } else {
-      response = await fetch(`/api/car?query=${query}`);
-    }
-
-    if (!response.ok) {
-      throw new Error("Failed to fetch cars data");
-    }
-
-    const json = await response.json();
-    const data = json.rows;
-
-    return data;
-  } catch (error) {
-    console.error("[ERROR]: An error occurred while fetching cars data", error);
-  }
-}
+import { getCarsData } from '@/app/lib/actions';
 
 function changeData(jsonData: any): GridRowsProp {
+  if (jsonData === undefined) {
+    const error: GridRowsProp = [];
+    return error;
+  }
+
   let result: any = [];
 
   let count = 1;
@@ -128,4 +112,3 @@ export default function Page() {
     </Container>
   );
 }
-
