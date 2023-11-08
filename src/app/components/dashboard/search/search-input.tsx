@@ -1,9 +1,8 @@
 "use client";
 
-import { SearchBarProps } from "@/app/lib/interfaces";
-
-import { styled } from "@mui/material/styles";
-import Input from "@mui/material/Input";
+import { SearchBarProps } from '@/app/lib/interfaces';
+import Input from '@mui/material/Input';
+import { styled } from '@mui/material/styles';
 
 const StyledInput = styled(Input)(({ theme }) => ({
   color: "inherit",

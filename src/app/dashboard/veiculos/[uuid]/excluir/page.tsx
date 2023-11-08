@@ -1,7 +1,11 @@
-import VeiculosAddForm from '@/app/components/dashboard/veiculos/add-form';
+import VeiculosDeleteForm from '@/app/components/dashboard/veiculos/delete-form';
 import { Container, Paper, Typography } from '@mui/material';
 
-export default function Page() {
+export default function Page({
+  params,
+}: Readonly<{ params: { uuid: string } }>) {
+  const uuid = params.uuid;
+
   return (
     <Container component="main" maxWidth="xs" disableGutters sx={{ mb: 4 }}>
       <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: 3 }}>
@@ -12,9 +16,9 @@ export default function Page() {
           fontWeight={400}
           sx={{ mb: 3 }}
         >
-          Adicionar Veículo
+          Excluir Veículo?
         </Typography>
-        <VeiculosAddForm />
+        <VeiculosDeleteForm uuid={uuid} />
       </Paper>
     </Container>
   );

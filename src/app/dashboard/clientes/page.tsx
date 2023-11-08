@@ -1,11 +1,11 @@
 "use client";
 
-import SearchBar from "@/app/components/dashboard/search/search";
-import Button from "@mui/material/Button";
-import Container from "@mui/material/Container";
-import Paper from "@mui/material/Paper";
-import Typography from "@mui/material/Typography";
-import Grid from "@mui/material/Unstable_Grid2";
+import SearchBar from '@/app/components/dashboard/search/search';
+import Button from '@mui/material/Button';
+import Container from '@mui/material/Container';
+import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Unstable_Grid2';
 
 export default function Page() {
   return (

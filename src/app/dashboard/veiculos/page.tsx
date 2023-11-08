@@ -1,45 +1,99 @@
 "use client";
 
-import SearchBar from "@/app/components/dashboard/search/search";
-import DataTable from "@/app/components/dashboard/table";
-import Button from "@mui/material/Button";
-import Container from "@mui/material/Container";
-import Paper from "@mui/material/Paper";
-import Typography from "@mui/material/Typography";
-import Grid from "@mui/material/Unstable_Grid2";
-import { GridColDef } from "@mui/x-data-grid/models/colDef/gridColDef";
-import { GridRowsProp } from "@mui/x-data-grid/models/gridRows";
+import Link from 'next/link';
+import { useEffect, useState } from 'react';
+import { useDebounce } from 'use-debounce';
 
-import { useEffect, useState } from "react";
-import { useDebounce } from "use-debounce";
+import SearchBar from '@/app/components/dashboard/search/search';
+import DataTable from '@/app/components/dashboard/table/table';
+import { Button, Container, Paper, Typography } from '@mui/material';
+import Grid from '@mui/material/Unstable_Grid2';
+import { GridColDef, GridRowParams, GridRowsProp } from '@mui/x-data-grid';
 
-async function fetchCarsData(query: string) {
+async function getCarsData(query: string) {
   try {
-    let API_URL = "";
-    const response = await fetch(API_URL);
-    if (!response.ok) {
-      throw new Error("Network response was not ok");
+    let response;
+    if (query == "") {
+      response = await fetch(`/api/car`);
+    } else {
+      response = await fetch(`/api/car?query=${query}`);
     }
-    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch cars data");
+    }
+
+    const json = await response.json();
+    const data = json.rows;
+
     return data;
   } catch (error) {
-    console.error("Error fetching data:", error);
-    throw error;
+    console.error("[ERROR]: An error occurred while fetching cars data", error);
   }
 }
 
+function changeData(jsonData: any): GridRowsProp {
+  let result: any = [];
+
+  let count = 1;
+  jsonData.forEach((element: any) => {
+    let newData = {
+      id: count,
+      uuid: element.id,
+      col1: element.make,
+      col2: element.model,
+      col3: element.cost,
+    };
+    result.push(newData);
+    count++;
+  });
+
+  return result;
+}
+
 const columns: GridColDef[] = [
-  { field: 'col1', headerName: "Marca"},
-  { field: 'col2', headerName: "Modelo"},
-  { field: 'col3', headerName: "Km/L"},
+  { field: "col1", headerName: "Marca", flex: 3 },
+  { field: "col2", headerName: "Modelo", flex: 3 },
+  { field: "col3", headerName: "Custo (Km/L)", flex: 3 },
+  {
+    field: "col4",
+    headerName: "",
+    flex: 1,
+    renderCell: ({ row }: Partial<GridRowParams>) => {
+      return (
+        <Button
+          variant="contained"
+          color="primary"
+          href={`/dashboard/veiculos/editar/${row.uuid}`}
+          LinkComponent={Link}
+        >
+          Editar
+        </Button>
+      );
+    },
+  },
+  {
+    field: "col5",
+    headerName: "",
+    flex: 1,
+    renderCell: ({ row }: Partial<GridRowParams>) => {
+      return (
+        <Button
+          variant="contained"
+          color="error"
+          href={`/dashboard/veiculos/${row.uuid}/excluir`}
+        >
+          Excluir
+        </Button>
+      );
+    },
+  },
 ];
 
-const rows: GridRowsProp = [
-  { id: "1", col1: 'Hello', col2: 'World', col3: ""}
-];
+const initialRows: GridRowsProp = [];
 
 export default function Page() {
-  const [data, setData] = useState(rows);
+  const [rows, setRows] = useState(initialRows);
   const [query, setQuery] = useState("");
   const [debouncedValue] = useDebounce(query, 500);
 
@@ -48,11 +102,9 @@ export default function Page() {
   };
 
   useEffect(() => {
-    fetchCarsData(query)
-      .then((jsonData) => {
-        setData(jsonData);
-        console.log(data);
-      });
+    getCarsData(query).then((jsonData) => {
+      setRows(changeData(jsonData));
+    });
   }, [debouncedValue]);
 
   return (
@@ -64,13 +116,16 @@ export default function Page() {
         <Grid container sx={{ mt: 1 }}>
           <Grid xs={12} sx={{ display: "flex", justifyContent: "left" }}>
             <SearchBar query={query} handleQueryChange={handleQueryChange} />
-            <Button variant="contained" href="/dashboard/veiculos/adicionar">Adicionar</Button>
+            <Button variant="contained" href="/dashboard/veiculos/adicionar">
+              Adicionar
+            </Button>
           </Grid>
           <Grid xs={12} sx={{ mt: 2 }}>
-            <DataTable rows={data} columns={columns} />
+            <DataTable columns={columns} rows={rows} />
           </Grid>
         </Grid>
       </Paper>
     </Container>
   );
 }
+

@@ -1,19 +1,12 @@
 "use client";
 
-import Grid from "@mui/material/Unstable_Grid2";
-import {
-  Autocomplete,
-  Button,
-  Input,
-  TextField,
-  InputLabel,
-  Chip,
-  Box,
-} from "@mui/material";
-import KeyboardBackspaceRoundedIcon from "@mui/icons-material/KeyboardBackspaceRounded";
-import { addVeiculo } from "@/app/lib/actions";
-import { useEffect, useState } from "react";
-import { CarMake, CarModel } from "@/app/lib/interfaces";
+import { useEffect, useState } from 'react';
+
+import { addVeiculo } from '@/app/lib/actions';
+import { CarMake, CarModel } from '@/app/lib/interfaces';
+import KeyboardBackspaceRoundedIcon from '@mui/icons-material/KeyboardBackspaceRounded';
+import { Autocomplete, Box, Button, Chip, Input, InputLabel, TextField } from '@mui/material';
+import Grid from '@mui/material/Unstable_Grid2';
 
 async function fetchModels(query: string) {
   try {

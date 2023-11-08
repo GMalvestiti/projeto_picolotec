@@ -1,4 +1,4 @@
-import { NextRequest } from "next/server";
+import { NextRequest } from 'next/server';
 
 export async function GET(request: NextRequest) {
   try {
@@ -20,7 +20,7 @@ export async function GET(request: NextRequest) {
       },
     });
   } catch (error) {
-    console.error("[ERROR]: ", error);
+    console.error("[ERROR]: Internal server error", error);
 
     return new Response(JSON.stringify({ error: "Internal server error" }), {
       status: 500,
