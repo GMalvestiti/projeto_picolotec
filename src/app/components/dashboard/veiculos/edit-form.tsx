@@ -42,13 +42,11 @@ export default function VeiculosEditForm({
     fetchModels();
   }, [selectedMake]);
 
-  useEffect(() => {
-    setSelectedModel(models[0]);
-  }, [models]);
-
   const handleSubmit = function (formData: FormData) {
     putCar(uuid, formData);
   };
+
+  console.log(selectedModel);
 
   return (
     <Box component="form" action={handleSubmit}>
@@ -76,8 +74,7 @@ export default function VeiculosEditForm({
             sx={{ mt: 1 }}
             id="make"
             options={makes}
-            value={selectedMake}
-            inputValue={selectedMake}
+            defaultValue={make}
             onInputChange={(event, value) => {
               setSelectedMake(value);
             }}
@@ -112,11 +109,13 @@ export default function VeiculosEditForm({
             sx={{ mt: 1 }}
             id="model"
             options={models}
+            inputMode="search"
             value={selectedModel}
             inputValue={selectedModel}
             onInputChange={(event, value) => {
               setSelectedModel(value);
             }}
+            freeSolo
             renderOption={(props, option) => {
               return (
                 <li {...props} key={option}>
