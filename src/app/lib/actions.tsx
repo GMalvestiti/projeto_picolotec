@@ -3,9 +3,10 @@
 import { revalidatePath, unstable_noStore as noStore } from "next/cache";
 import { redirect } from "next/navigation";
 import { z } from "zod";
+
 import { sql } from "@vercel/postgres";
 
-const CarSchema = z.object({
+const CarGetSchema = z.object({
   description: z.string({
     invalid_type_error: "Por favor, informe uma descrição.",
   }),
@@ -20,7 +21,7 @@ const CarSchema = z.object({
     .gt(0, { message: "Por favor, informe um valor maior que 0." }),
 });
 
-const DeleteSchema = z.object({
+const CarDeleteSchema = z.object({
   uuid: z.string({
     invalid_type_error: "Por favor, informe o UUID.",
   }),
@@ -28,7 +29,7 @@ const DeleteSchema = z.object({
 
 export async function addVeiculo(formData: FormData) {
   // Validação utilizando zod
-  const validation = CarSchema.safeParse({
+  const validation = CarGetSchema.safeParse({
     description: formData.get("description"),
     make: formData.get("make"),
     model: formData.get("model"),
@@ -73,7 +74,9 @@ export async function getCarsData(query: string) {
     const response = await fetch(endpoint);
 
     if (!response.ok) {
-      throw new Error(`[ERRO] Falha ao buscar dados. Status: ${response.status}`);
+      throw new Error(
+        `[ERRO] Falha ao buscar dados. Status: ${response.status}`
+      );
     }
 
     let data = await response.json();
@@ -87,7 +90,7 @@ export async function getCarsData(query: string) {
 }
 
 export async function deleteCars(formData: FormData) {
-  const validation = DeleteSchema.safeParse({
+  const validation = CarDeleteSchema.safeParse({
     uuid: formData.get("uuid"),
   });
 
@@ -106,7 +109,6 @@ export async function deleteCars(formData: FormData) {
     await fetch(`${BASE_URL}/api/car?uuid=${uuid}`, {
       method: "DELETE",
     });
-
   } catch (error) {
     console.error("[ERRO]: Erro ao tentar deletar carro.", error);
   }

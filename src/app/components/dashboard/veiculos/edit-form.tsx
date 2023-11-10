@@ -1,74 +1,57 @@
 "use client";
 
-import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import Link from "next/link";
+import { useEffect, useState } from "react";
 
-import { addVeiculo } from '@/app/lib/actions';
-import { CarMake, CarModel } from '@/app/lib/interfaces';
-import KeyboardBackspaceRoundedIcon from '@mui/icons-material/KeyboardBackspaceRounded';
-import { Autocomplete, Box, Button, Chip, Input, InputLabel, TextField } from '@mui/material';
-import Grid from '@mui/material/Unstable_Grid2';
+import { getModels, putCar } from "@/app/actions/car";
+import { CarEditProps } from "@/app/lib/interfaces";
+import KeyboardBackspaceRoundedIcon from "@mui/icons-material/KeyboardBackspaceRounded";
+import {
+  Autocomplete,
+  Box,
+  Button,
+  Chip,
+  Input,
+  InputLabel,
+  TextField,
+} from "@mui/material";
+import Grid from "@mui/material/Unstable_Grid2";
 
-async function getModels(query: string) {
-  try {
-    const response = await fetch(`/api/car/model?query=${query}`);
-
-    if (!response.ok) {
-      throw new Error("Failed to fetch car models");
-    }
-
-    const data = await response.json();
-    const modelsArray: string[] = data.results.map(
-      (item: CarModel) => item.model
-    );
-    const uniqueModelsSet = new Set(modelsArray);
-    const uniqueModelsArray = Array.from(uniqueModelsSet);
-
-    return uniqueModelsArray;
-  } catch (error) {
-    console.error(
-      "[ERROR]: An error occurred while fetching car models",
-      error
-    );
-  }
-}
-
-export default function VeiculosAddForm() {
-  const [makes, setMakes] = useState([""]);
-  const [models, setModels] = useState([""]);
-  const [disabled, setDisabled] = useState(true);
-  const [selectedInput, setSelectedInput] = useState("");
+export default function VeiculosEditForm({
+  uuid,
+  description,
+  make,
+  model,
+  cost,
+  makes,
+  initialModels,
+}: Readonly<CarEditProps>) {
+  const [models, setModels] = useState(initialModels);
+  const [selectedMake, setSelectedMake] = useState(make);
+  const [selectedModel, setSelectedModel] = useState(model);
 
   useEffect(() => {
-    async function fetchMakes() {
-      try {
-        const response = await fetch("/api/car/make");
-
-        if (!response.ok) {
-          throw new Error("Failed to fetch car makes");
+    async function fetchModels() {
+      getModels(selectedMake).then((newModels) => {
+        if (newModels) {
+          setModels(newModels);
         }
-
-        const data = await response.json();
-        const makesArray: string[] = data.results.map(
-          (item: CarMake) => item.make
-        );
-        const uniqueMakesSet = new Set(makesArray);
-        const uniqueMakesArray = Array.from(uniqueMakesSet);
-
-        setMakes(uniqueMakesArray);
-      } catch (error) {
-        console.error(
-          "[ERROR]: An error occurred while fetching car makes",
-          error
-        );
-      }
+      });
     }
 
-    fetchMakes();
-  }, []);
+    fetchModels();
+  }, [selectedMake]);
+
+  useEffect(() => {
+    setSelectedModel(models[0]);
+  }, [models]);
+
+  const handleSubmit = function (formData: FormData) {
+    putCar(uuid, formData);
+  };
 
   return (
-    <Box component="form" action={addVeiculo}>
+    <Box component="form" action={handleSubmit}>
       <Grid container spacing={2}>
         <Grid xs={12}>
           <InputLabel htmlFor="description">
@@ -76,6 +59,7 @@ export default function VeiculosAddForm() {
           </InputLabel>
           <Input
             id="description"
+            defaultValue={description}
             sx={{ mt: 1 }}
             name="description"
             type="text"
@@ -92,16 +76,10 @@ export default function VeiculosAddForm() {
             sx={{ mt: 1 }}
             id="make"
             options={makes}
-            onInputChange={async (event, query) => {
-              getModels(query).then((newModels) => {
-                if (newModels) {
-                  setModels(newModels);
-                  setSelectedInput(newModels[0]);
-                  if (disabled) {
-                    setDisabled(false);
-                  }
-                }
-              });
+            value={selectedMake}
+            inputValue={selectedMake}
+            onInputChange={(event, value) => {
+              setSelectedMake(value);
             }}
             renderOption={(props, option) => {
               return (
@@ -134,11 +112,10 @@ export default function VeiculosAddForm() {
             sx={{ mt: 1 }}
             id="model"
             options={models}
-            value={selectedInput}
-            inputValue={selectedInput}
-            disabled={disabled}
-            onInputChange={async (event, query) => {
-              setSelectedInput(query);
+            value={selectedModel}
+            inputValue={selectedModel}
+            onInputChange={(event, value) => {
+              setSelectedModel(value);
             }}
             renderOption={(props, option) => {
               return (
@@ -169,6 +146,7 @@ export default function VeiculosAddForm() {
           </InputLabel>
           <Input
             id="cost"
+            defaultValue={cost}
             sx={{ mt: 1 }}
             type="number"
             name="cost"
@@ -191,7 +169,7 @@ export default function VeiculosAddForm() {
         </Grid>
         <Grid xs={6} sx={{ mt: 2 }}>
           <Button variant="contained" type="submit" fullWidth size="large">
-            Adicionar
+            Salvar
           </Button>
         </Grid>
       </Grid>

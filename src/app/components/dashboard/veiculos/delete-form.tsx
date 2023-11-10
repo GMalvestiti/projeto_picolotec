@@ -1,15 +1,14 @@
 "use client";
 
-import { DeleteCarsProps } from "@/app/lib/interfaces";
-import KeyboardBackspaceRoundedIcon from "@mui/icons-material/KeyboardBackspaceRounded";
-import { Box, Button, Input } from "@mui/material";
-import Grid from "@mui/material/Unstable_Grid2";
-import { deleteCars } from "@/app/lib/actions";
-import Link from "next/link";
+import Link from 'next/link';
 
-export default function VeiculosDeleteForm({
-  uuid,
-}: Readonly<DeleteCarsProps>) {
+import { deleteCars } from '@/app/lib/actions';
+import { UuidProps } from '@/app/lib/interfaces';
+import KeyboardBackspaceRoundedIcon from '@mui/icons-material/KeyboardBackspaceRounded';
+import { Box, Button, Input } from '@mui/material';
+import Grid from '@mui/material/Unstable_Grid2';
+
+export default function VeiculosDeleteForm({ uuid }: Readonly<UuidProps>) {
   return (
     <Box component="form" action={deleteCars}>
       <Grid container spacing={2}>
