@@ -26,7 +26,7 @@ export default function Home() {
           <Grid item xs={12}>
             <Button
               variant="contained"
-              href="/dashboard/veiculos"
+              href="/dashboard"
               size="large"
               LinkComponent={Link}
               fullWidth
