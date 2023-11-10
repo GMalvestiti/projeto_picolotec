@@ -61,6 +61,7 @@ export async function addVeiculo(formData: FormData) {
 }
 
 export async function getCarsData(query: string) {
+  noStore();
   try {
     const BASE_URL = process.env.BASE_URL;
 
