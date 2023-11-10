@@ -48,9 +48,7 @@ export async function PUT(request: NextRequest) {
       WHERE id = ${id};
     `;
 
-    return NextResponse.json(JSON.stringify({ message: "Updated car" }), {
-      status: 200,
-    });
+    return NextResponse.json({ message: "Updated car" },{ status: 200 });
   } catch (error) {
     console.error("[ERROR]: Internal server error", error);
 
