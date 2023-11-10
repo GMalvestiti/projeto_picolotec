@@ -45,9 +45,7 @@ export default function VeiculosEditForm({
   const handleSubmit = function (formData: FormData) {
     putCar(uuid, formData);
   };
-
-  console.log(selectedModel);
-
+  
   return (
     <Box component="form" action={handleSubmit}>
       <Grid container spacing={2}>

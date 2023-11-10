@@ -1,6 +1,7 @@
 "use server";
 import { revalidatePath, unstable_noStore as noStore } from "next/cache";
 import { redirect } from "next/navigation";
+import { sql } from "@vercel/postgres";
 import { z } from "zod";
 
 import { CarMake, CarModel } from "@/app/lib/interfaces";
@@ -30,7 +31,7 @@ export async function getCarData(uuid: string) {
 
     const endpoint = `${BASE_URL}/api/car?uuid=${uuid}`;
 
-    const response = await fetch(endpoint/*, { cache: 'no-store' }*/);
+    const response = await fetch(endpoint /*, { cache: 'no-store' }*/);
 
     if (!response.ok) {
       throw new Error(
@@ -113,11 +114,13 @@ export async function putCar(uuid: string, formData: FormData) {
   try {
     await fetch(`${BASE_URL}/api/car?uuid=${uuid}`, {
       method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
       body: JSON.stringify({ id, description, make, model, cost }),
     });
+    /*await sql`
+      UPDATE cars
+      SET description = ${description}, make = ${make}, model = ${model}, cost = ${cost}
+      WHERE id = ${id};
+    `;*/
   } catch (error) {
     console.error("[ERRO]: Erro ao tentar atualizar carro.", error);
   }
