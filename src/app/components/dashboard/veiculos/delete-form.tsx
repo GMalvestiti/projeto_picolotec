@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 
-import { deleteCars } from '@/app/lib/actions';
+import { deleteCar } from '@/app/actions/car';
 import { UuidProps } from '@/app/lib/interfaces';
 import KeyboardBackspaceRoundedIcon from '@mui/icons-material/KeyboardBackspaceRounded';
 import { Box, Button, Input } from '@mui/material';
@@ -10,7 +10,7 @@ import Grid from '@mui/material/Unstable_Grid2';
 
 export default function VeiculosDeleteForm({ uuid }: Readonly<UuidProps>) {
   return (
-    <Box component="form" action={deleteCars}>
+    <Box component="form" action={deleteCar}>
       <Grid container spacing={2}>
         <Input type="hidden" name="uuid" value={uuid} />
         <Grid xs={6} sx={{ mt: 2 }}>

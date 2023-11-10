@@ -1,7 +1,6 @@
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 import { sql } from "@vercel/postgres";
-import { returnResponse } from "@/app/lib/utils";
 
 export async function GET(request: NextRequest) {
   try {
@@ -25,21 +24,40 @@ export async function GET(request: NextRequest) {
       `;
     }
 
-    return new Response(JSON.stringify(data), {
+    return NextResponse.json(JSON.stringify(data), { status: 200 });
+  } catch (error) {
+    console.error("[ERROR]: Internal server error", error);
+
+    return NextResponse.json(
+      JSON.stringify({ error: "Internal server error" }),
+      { status: 500 }
+    );
+  }
+}
+
+export async function PUT(request: NextRequest) {
+  const { id, description, make, model, cost } = await request.json();
+
+  if (!id || !description || !make || !model || !cost)
+    return NextResponse.json({ message: "[ERRO] Dados faltando" });
+
+  try {
+    const operation = await sql`
+      UPDATE cars
+      SET description = ${description}, make = ${make}, model = ${model}, cost = ${cost}
+      WHERE id = ${id};
+    `;
+
+    return NextResponse.json(JSON.stringify({ message: "Updated car" }), {
       status: 200,
-      headers: {
-        "Content-Type": "application/json",
-      },
     });
   } catch (error) {
     console.error("[ERROR]: Internal server error", error);
 
-    return new Response(JSON.stringify({ error: "Internal server error" }), {
-      status: 500,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    return NextResponse.json(
+      JSON.stringify({ error: "Internal server error" }),
+      { status: 500 }
+    );
   }
 }
 
@@ -56,36 +74,12 @@ export async function DELETE(request: NextRequest) {
       `;
     }
 
-    return new Response(JSON.stringify(data), {
-      status: 200,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    return NextResponse.json(JSON.stringify(data), { status: 200 });
   } catch (error) {
     console.error("[ERROR]: Internal server error", error);
-
-    return returnResponse({ error: "Internal server error" }, 500);
-  }
-}
-
-export async function PUT(request: Request) {
-  const { id, description, make, model, cost } = await request.json();
-
-  if (!id || !description || !make || !model || !cost)
-    return Response.json({ message: "[ERRO] Dados faltando" });
-
-  try {
-    const operation = await sql`
-      UPDATE cars
-      SET description = ${description}, make = ${make}, model = ${model}, cost = ${cost}
-      WHERE id = ${id};
-    `;
-
-    return returnResponse({ message: "OK" }, 200);
-  } catch (error) {
-    console.error("[ERROR]: Internal server error", error);
-
-    return returnResponse({ error: "Internal server error" }, 500);
+    return NextResponse.json(
+      JSON.stringify({ error: "Internal server error" }),
+      { status: 500 }
+    );
   }
 }
