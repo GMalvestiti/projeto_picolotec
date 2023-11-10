@@ -24,12 +24,13 @@ const CarPutSchema = z.object({
 });
 
 export async function getCarData(uuid: string) {
+  noStore();
   try {
     const BASE_URL = process.env.BASE_URL;
 
     const endpoint = `${BASE_URL}/api/car?uuid=${uuid}`;
 
-    const response = await fetch(endpoint, { cache: 'no-store' });
+    const response = await fetch(endpoint/*, { cache: 'no-store' }*/);
 
     if (!response.ok) {
       throw new Error(
