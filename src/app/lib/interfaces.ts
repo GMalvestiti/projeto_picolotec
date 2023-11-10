@@ -44,6 +44,16 @@ export interface CarModel {
   model: string;
 }
 
-export interface DeleteCarsProps {
+export interface UuidProps {
   uuid: string;
+}
+
+export interface CarEditProps {
+  uuid: string;
+  description: string;
+  make: string;
+  model: string;
+  cost: number;
+  makes: string[];
+  initialModels: string[];
 }

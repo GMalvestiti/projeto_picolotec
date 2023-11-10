@@ -6,10 +6,10 @@ import { useDebounce } from 'use-debounce';
 
 import SearchBar from '@/app/components/dashboard/search/search';
 import DataTable from '@/app/components/dashboard/table/table';
+import { getCarsData } from '@/app/lib/actions';
 import { Button, Container, Paper, Typography } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 import { GridColDef, GridRowParams, GridRowsProp } from '@mui/x-data-grid';
-import { getCarsData } from '@/app/lib/actions';
 
 function changeData(jsonData: any): GridRowsProp {
   if (jsonData === undefined) {
@@ -38,7 +38,7 @@ const columns: GridColDef[] = [
   { field: "col1", headerName: "Descrição", flex: 3, align: "center", headerAlign: "center" },
   { field: "col2", headerName: "Marca", flex: 3, align: "center", headerAlign: "center" },
   { field: "col3", headerName: "Modelo", flex: 3, align: "center", headerAlign: "center" },
-  { field: "col4", headerName: "Custo (Km/L)", flex: 3, align: "center", headerAlign: "center" },
+  { field: "col4", headerName: "Performance (Km/L)", flex: 3, align: "center", headerAlign: "center" },
   {
     field: "col5",
     headerName: "",
@@ -50,8 +50,7 @@ const columns: GridColDef[] = [
         <Button
           variant="contained"
           color="primary"
-          href={`/dashboard/veiculos/editar/${row.uuid}`}
-          LinkComponent={Link}
+          href={`/dashboard/veiculos/${row.uuid}/editar`}
         >
           Editar
         </Button>
