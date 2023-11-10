@@ -24,7 +24,7 @@ export async function GET(request: NextRequest) {
       `;
     }
 
-    return NextResponse.json(JSON.stringify(data), { status: 200 });
+    return NextResponse.json(data, { status: 200 });
   } catch (error) {
     console.error("[ERROR]: Internal server error", error);
 
