@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
-import { addVeiculo } from '@/app/lib/actions';
+import { postCar } from '@/app/actions/car';
 import { CarMake, CarModel } from '@/app/lib/interfaces';
 import KeyboardBackspaceRoundedIcon from '@mui/icons-material/KeyboardBackspaceRounded';
 import { Autocomplete, Box, Button, Chip, Input, InputLabel, TextField } from '@mui/material';
@@ -68,7 +68,7 @@ export default function VeiculosAddForm() {
   }, []);
 
   return (
-    <Box component="form" action={addVeiculo}>
+    <Box component="form" action={postCar}>
       <Grid container spacing={2}>
         <Grid xs={12}>
           <InputLabel htmlFor="description">
