@@ -159,15 +159,15 @@ export async function putCar(uuid: string, formData: FormData) {
   const { id, description, make, model, cost } = validation.data;
 
   try {
-    await fetch(`${BASE_URL}/api/car?uuid=${uuid}`, {
+    /*await fetch(`${BASE_URL}/api/car?uuid=${uuid}`, {
       method: "PUT",
       body: JSON.stringify({ id, description, make, model, cost }),
-    });
-    /*await sql`
+    });*/
+    await sql`
       UPDATE cars
       SET description = ${description}, make = ${make}, model = ${model}, cost = ${cost}
       WHERE id = ${id};
-    `;*/
+    `;
   } catch (error) {
     console.error("[ERRO]: Erro ao tentar atualizar carro.", error);
   }
