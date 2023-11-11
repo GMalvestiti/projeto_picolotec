@@ -4,6 +4,7 @@ import {
   Autocomplete,
   Box,
   Button,
+  Input,
   InputLabel,
   TextField,
   Typography,
@@ -75,10 +76,19 @@ export default function SimulateForm({
       calculateDistance(origin.place_id, destination.place_id)
         .then((result) => {
           if (result) {
-            
-            setCusto(Number(result.distance.toFixed(2)));
+            const description = formData.get("cars");
+            const car = cars.filter((c: any) => {
+              return c.label === description;
+            });
+            if (car.length > 0) {
+              const gas = formData.get("gas");
+              const cost = Number(gas) * (Number(result.distance.toFixed(2)) / car[0].cost);
+              setCusto(Number(cost.toFixed(2)));
+            } else {
+              console.error("[Erro]: Nenhum carro encontrado.");
+            }
           } else {
-            console.error("Falha ao calcular distância.");
+            console.error("[Erro]: Falha ao calcular distância.");
           }
         })
         .catch((error) => {
@@ -119,7 +129,22 @@ export default function SimulateForm({
             id="cars"
             options={cars}
             sx={{ width: 400 }}
-            renderInput={(params) => <TextField {...params} name="cars" required />}
+            renderInput={(params) => (
+              <TextField {...params} name="cars" required />
+            )}
+          />
+        </Grid>
+        <Grid xs={12} sx={{ mt: 1 }}>
+          <InputLabel htmlFor="gas">
+            <b>Preço do Combustível:</b>
+          </InputLabel>
+          <Input
+            id="gas"
+            sx={{ mt: 1 }}
+            type="number"
+            name="gas"
+            fullWidth
+            required
           />
         </Grid>
         <Grid xs={6} sx={{ mt: 2 }}>
