@@ -3,50 +3,70 @@
 import { Box, Button } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import GoogleLocationButton from "./google-button";
-import { GoogleMapsFormProps, PlaceType } from "@/app/lib/interfaces";
+import { GoogleMapsFormProps, PlaceType, RouteDistanceResult } from "@/app/lib/interfaces";
 import { useEffect, useState } from "react";
 
-const initialValue: PlaceType = {
+const initialData: PlaceType = {
   place_id: "",
   description: "",
   structured_formatting: null,
-}
+};
 
-function getLatLngFromPlaceId(placeId: any): Promise<{ lat: number; lng: number } | null> {
-  return new Promise((resolve) => {
-    const geocoder = new window.google.maps.Geocoder();
+async function calculateDistance(
+  originPlaceId: string,
+  destinationPlaceId: string
+): Promise<RouteDistanceResult | null> {
+  const directionsService = new google.maps.DirectionsService();
 
-    geocoder.geocode({ placeId }, (results: any, status: any) => {
-      if (status === 'OK' && results[0]?.geometry?.location) {
-        const latLng = {
-          lat: results[0].geometry.location.lat(),
-          lng: results[0].geometry.location.lng(),
-        };
-        resolve(latLng);
-      } else {
-        resolve(null);
+  return new Promise((resolve, reject) => {
+    directionsService.route(
+      {
+        origin: { placeId: originPlaceId },
+        destination: { placeId: destinationPlaceId },
+        travelMode: google.maps.TravelMode.DRIVING,
+      },
+      (response, status) => {
+        if (status === google.maps.DirectionsStatus.OK && response != null) {
+          const route = response.routes[0];
+          let totalDistance = 0;
+
+          route.legs.forEach((leg) => {
+            totalDistance += leg.distance?.value || 0;
+          });
+
+          const distanceInKm = totalDistance / 1000;
+
+          resolve({ distance: distanceInKm });
+        } else {
+          console.error("Directions request failed with status:", status);
+          reject(null);
+        }
       }
-    });
+    );
   });
 }
 
 export default function SimulateForm({
   GOOGLE_MAPS_API_KEY,
 }: Readonly<GoogleMapsFormProps>) {
-  const [value, setValue] = useState<PlaceType>(initialValue);
+  const [origin, setOrigin] = useState<PlaceType>(initialData);
+  const [destination, setDestination] = useState<PlaceType>(initialData);
 
   useEffect(() => {
-    if (value !== null) {
-      getLatLngFromPlaceId(value.place_id).then((latLng) => {
-        if (latLng) {
-          console.log('Latitude:', latLng.lat);
-          console.log('Longitude:', latLng.lng);
-        } else {
-          console.error('Unable to fetch coordinates for the provided place_id.');
-        }
-      });
+    if ((origin != initialData) && (destination != initialData) && (origin != null) && (destination != null)) {
+      calculateDistance(origin.place_id, destination.place_id)
+        .then((result) => {
+          if (result) {
+            console.log(`Distância: ${result.distance.toFixed(2)} km`);
+          } else {
+            console.error("Falha ao calcular distância.");
+          }
+        })
+        .catch((error) => {
+          console.error("Erro:", error);
+        });
     }
-  }, [value]);
+  }, [origin, destination]);
 
   return (
     <Box component="form">
@@ -54,8 +74,14 @@ export default function SimulateForm({
         <Grid xs={12} sx={{ mt: 2 }}>
           <GoogleLocationButton
             GOOGLE_MAPS_API_KEY={GOOGLE_MAPS_API_KEY}
-            value={value}
-            setValue={setValue}
+            value={origin}
+            setValue={setOrigin}
+          />
+          <br />
+          <GoogleLocationButton
+            GOOGLE_MAPS_API_KEY={GOOGLE_MAPS_API_KEY}
+            value={destination}
+            setValue={setDestination}
           />
         </Grid>
       </Grid>

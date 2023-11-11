@@ -85,3 +85,7 @@ export interface GoogleMapsButtonProps {
   value: PlaceType | null;
   setValue: Dispatch<SetStateAction<PlaceType>>;
 }
+
+export interface RouteDistanceResult {
+  distance: number;
+}

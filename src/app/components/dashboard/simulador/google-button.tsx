@@ -117,7 +117,7 @@ export default function GoogleMaps({
         setInputValue(newInputValue);
       }}
       renderInput={(params) => (
-        <TextField {...params} label="Pesquisar..." fullWidth />
+        <TextField {...params} fullWidth />
       )}
       renderOption={(props, option) => {
         const matches =
