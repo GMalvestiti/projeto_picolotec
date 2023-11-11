@@ -75,12 +75,13 @@ export interface StructuredFormatting {
 }
 
 export interface PlaceType {
+  place_id: string;
   description: string;
-  structured_formatting: StructuredFormatting;
+  structured_formatting: any;
 }
 
 export interface GoogleMapsButtonProps {
   GOOGLE_MAPS_API_KEY: any;
   value: PlaceType | null;
-  setValue: Dispatch<SetStateAction<null>>;
+  setValue: Dispatch<SetStateAction<PlaceType>>;
 }

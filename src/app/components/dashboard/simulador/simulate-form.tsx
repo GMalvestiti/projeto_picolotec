@@ -3,10 +3,16 @@
 import { Box, Button } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import GoogleLocationButton from "./google-button";
-import { GoogleMapsFormProps } from "@/app/lib/interfaces";
+import { GoogleMapsFormProps, PlaceType } from "@/app/lib/interfaces";
 import { useEffect, useState } from "react";
 
-function getLatLngFromPlaceId(placeId: string): Promise<{ lat: number; lng: number } | null> {
+const initialValue: PlaceType = {
+  place_id: "",
+  description: "",
+  structured_formatting: null,
+}
+
+function getLatLngFromPlaceId(placeId: any): Promise<{ lat: number; lng: number } | null> {
   return new Promise((resolve) => {
     const geocoder = new window.google.maps.Geocoder();
 
@@ -27,7 +33,7 @@ function getLatLngFromPlaceId(placeId: string): Promise<{ lat: number; lng: numb
 export default function SimulateForm({
   GOOGLE_MAPS_API_KEY,
 }: Readonly<GoogleMapsFormProps>) {
-  const [value, setValue] = useState(null);
+  const [value, setValue] = useState<PlaceType>(initialValue);
 
   useEffect(() => {
     if (value !== null) {
