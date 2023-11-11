@@ -1,5 +1,6 @@
 import { GridColDef } from '@mui/x-data-grid/models/colDef/gridColDef';
 import { GridRowsProp } from '@mui/x-data-grid/models/gridRows';
+import { Dispatch, SetStateAction } from 'react';
 
 export interface SideNavProps {
   open: boolean;
@@ -56,4 +57,30 @@ export interface CarEditProps {
   cost: number;
   makes: string[];
   initialModels: string[];
+}
+
+export interface GoogleMapsFormProps {
+  GOOGLE_MAPS_API_KEY: any;
+}
+
+export interface MainTextMatchedSubstrings {
+  offset: number;
+  length: number;
+}
+
+export interface StructuredFormatting {
+  main_text: string;
+  secondary_text: string;
+  main_text_matched_substrings?: readonly MainTextMatchedSubstrings[];
+}
+
+export interface PlaceType {
+  description: string;
+  structured_formatting: StructuredFormatting;
+}
+
+export interface GoogleMapsButtonProps {
+  GOOGLE_MAPS_API_KEY: any;
+  value: PlaceType | null;
+  setValue: Dispatch<SetStateAction<null>>;
 }

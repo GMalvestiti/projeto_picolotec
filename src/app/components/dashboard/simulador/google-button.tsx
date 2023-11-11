@@ -1,45 +1,46 @@
-import * as React from "react";
-import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
-import Autocomplete from "@mui/material/Autocomplete";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
-import Grid from "@mui/material/Grid";
-import Typography from "@mui/material/Typography";
 import parse from "autosuggest-highlight/parse";
 import { debounce } from "@mui/material/utils";
-import { loadScript } from "@/app/lib/utils";
+import { GoogleMapsButtonProps, PlaceType } from "@/app/lib/interfaces";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { Autocomplete, Box, Grid, TextField, Typography } from "@mui/material";
+
+function loadScript(src: string, position: HTMLElement | null, id: string) {
+  if (!position) {
+    return;
+  }
+
+  const script = document.createElement("script");
+  script.setAttribute("async", "");
+  script.setAttribute("id", id);
+  script.src = src;
+  position.appendChild(script);
+}
 
 const autocompleteService = { current: null };
 
-interface MainTextMatchedSubstrings {
-  offset: number;
-  length: number;
-}
-interface StructuredFormatting {
-  main_text: string;
-  secondary_text: string;
-  main_text_matched_substrings?: readonly MainTextMatchedSubstrings[];
-}
-interface PlaceType {
-  description: string;
-  structured_formatting: StructuredFormatting;
-}
-
-export default function GoogleMaps() {
-  const [value, setValue] = React.useState<PlaceType | null>(null);
-  const [inputValue, setInputValue] = React.useState("");
-  const [options, setOptions] = React.useState<readonly PlaceType[]>([]);
-  const loaded = React.useRef(false);
+export default function GoogleMaps({
+  GOOGLE_MAPS_API_KEY,
+  value,
+  setValue
+}: Readonly<GoogleMapsButtonProps>) {
+  const [inputValue, setInputValue] = useState("");
+  const [options, setOptions] = useState<readonly PlaceType[]>([]);
+  const loaded = useRef(false);
 
   if (typeof window !== "undefined" && !loaded.current) {
     if (!document.querySelector("#google-maps")) {
-      loadScript(document.querySelector("head"));
+      loadScript(
+        `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&libraries=places`,
+        document.querySelector("head"),
+        "google-maps"
+      );
     }
 
     loaded.current = true;
   }
 
-  const fetch = React.useMemo(
+  const fetch = useMemo(
     () =>
       debounce(
         (
@@ -56,7 +57,7 @@ export default function GoogleMaps() {
     []
   );
 
-  React.useEffect(() => {
+  useEffect(() => {
     let active = true;
 
     if (!autocompleteService.current && (window as any).google) {
@@ -96,7 +97,7 @@ export default function GoogleMaps() {
 
   return (
     <Autocomplete
-      id="google-map-demo"
+      id="google-map"
       sx={{ width: 300 }}
       getOptionLabel={(option) =>
         typeof option === "string" ? option : option.description
@@ -107,8 +108,8 @@ export default function GoogleMaps() {
       includeInputInList
       filterSelectedOptions
       value={value}
-      noOptionsText="No locations"
-      onChange={(event: any, newValue: PlaceType | null) => {
+      noOptionsText="Sem resultados"
+      onChange={(event: any, newValue: any) => {
         setOptions(newValue ? [newValue, ...options] : options);
         setValue(newValue);
       }}
@@ -116,7 +117,7 @@ export default function GoogleMaps() {
         setInputValue(newInputValue);
       }}
       renderInput={(params) => (
-        <TextField {...params} label="Add a location" fullWidth />
+        <TextField {...params} label="Pesquisar..." fullWidth />
       )}
       renderOption={(props, option) => {
         const matches =
@@ -140,7 +141,7 @@ export default function GoogleMaps() {
                 item
                 sx={{ width: "calc(100% - 44px)", wordWrap: "break-word" }}
               >
-                {parts.map((part: any, index: any) => (
+                {parts.map((part, index) => (
                   <Box
                     key={index}
                     component="span"
