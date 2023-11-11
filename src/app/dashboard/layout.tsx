@@ -1,6 +1,5 @@
 import SideNavManager from '@/app/components/dashboard/sidenav/sidenav-manager';
-import { Toolbar } from '@mui/material';
-import Box from '@mui/material/Box';
+import { Box, Toolbar } from '@mui/material';
 
 export default function Layout({
   children,

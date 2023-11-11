@@ -1,8 +1,5 @@
 import { SideNavProps } from '@/app/lib/interfaces';
-import AccountBalanceWalletOutlinedIcon from '@mui/icons-material/AccountBalanceWalletOutlined';
-import AccountBoxOutlinedIcon from '@mui/icons-material/AccountBoxOutlined';
 import CalculateOutlinedIcon from '@mui/icons-material/CalculateOutlined';
-import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
 import DirectionsCarFilledOutlinedIcon from '@mui/icons-material/DirectionsCarFilledOutlined';
 import SpaceDashboardOutlinedIcon from '@mui/icons-material/SpaceDashboardOutlined';
 import Divider from '@mui/material/Divider';
@@ -62,17 +59,7 @@ const items = [
     text: "Simulador",
     href: "/dashboard/simulador",
     icon: <CalculateOutlinedIcon />
-  },
-  {
-    text: "Financeiro",
-    href: "/dashboard/financeiro",
-    icon: <AccountBalanceWalletOutlinedIcon />
-  },
-  {
-    text: "Agenda",
-    href: "/dashboard/agenda",
-    icon: <CalendarMonthOutlinedIcon />
-  },
+  }
 ];
 
 const items_registro = [
@@ -80,11 +67,6 @@ const items_registro = [
     text: "Veículos",
     href: "/dashboard/veiculos",
     icon: <DirectionsCarFilledOutlinedIcon />
-  },
-  {
-    text: "Clientes",
-    href: "/dashboard/clientes",
-    icon: <AccountBoxOutlinedIcon />
   }
 ]
 
