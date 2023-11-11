@@ -128,7 +128,7 @@ export default function SimulateForm({
             disablePortal
             id="cars"
             options={cars}
-            sx={{ width: 400 }}
+            sx={{ width: 400, mt: 1 }}
             renderInput={(params) => (
               <TextField {...params} name="cars" required />
             )}
@@ -136,7 +136,7 @@ export default function SimulateForm({
         </Grid>
         <Grid xs={12} sx={{ mt: 1 }}>
           <InputLabel htmlFor="gas">
-            <b>Preço do Combustível:</b>
+            <b>Preço do Combustível (R$):</b>
           </InputLabel>
           <Input
             id="gas"
