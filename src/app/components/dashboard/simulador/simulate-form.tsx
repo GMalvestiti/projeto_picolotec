@@ -1,9 +1,20 @@
 "use client";
 
-import { Box, Button } from "@mui/material";
+import {
+  Autocomplete,
+  Box,
+  Button,
+  InputLabel,
+  TextField,
+  Typography,
+} from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import GoogleLocationButton from "./google-button";
-import { GoogleMapsFormProps, PlaceType, RouteDistanceResult } from "@/app/lib/interfaces";
+import {
+  GoogleMapsFormProps,
+  PlaceType,
+  RouteDistanceResult,
+} from "@/app/lib/interfaces";
 import { useEffect, useState } from "react";
 
 const initialData: PlaceType = {
@@ -48,41 +59,78 @@ async function calculateDistance(
 
 export default function SimulateForm({
   GOOGLE_MAPS_API_KEY,
+  cars,
 }: Readonly<GoogleMapsFormProps>) {
   const [origin, setOrigin] = useState<PlaceType>(initialData);
   const [destination, setDestination] = useState<PlaceType>(initialData);
+  const [custo, setCusto] = useState<number>(0);
 
-  useEffect(() => {
-    if ((origin != initialData) && (destination != initialData) && (origin != null) && (destination != null)) {
+  const handleSubmit = function (formData: FormData) {
+    if (
+      origin != initialData &&
+      destination != initialData &&
+      origin != null &&
+      destination != null
+    ) {
       calculateDistance(origin.place_id, destination.place_id)
         .then((result) => {
           if (result) {
-            console.log(`Distância: ${result.distance.toFixed(2)} km`);
+            
+            setCusto(Number(result.distance.toFixed(2)));
           } else {
             console.error("Falha ao calcular distância.");
           }
         })
         .catch((error) => {
-          console.error("Erro:", error);
+          console.error("Erro: ", error);
         });
     }
-  }, [origin, destination]);
+  };
 
   return (
-    <Box component="form">
+    <Box component="form" action={handleSubmit}>
       <Grid container spacing={2}>
         <Grid xs={12} sx={{ mt: 2 }}>
+          <InputLabel htmlFor="origin">
+            <b>Origem:</b>
+          </InputLabel>
           <GoogleLocationButton
             GOOGLE_MAPS_API_KEY={GOOGLE_MAPS_API_KEY}
             value={origin}
             setValue={setOrigin}
           />
-          <br />
+        </Grid>
+        <Grid xs={12} sx={{ mt: 1 }}>
+          <InputLabel htmlFor="destination">
+            <b>Destino:</b>
+          </InputLabel>
           <GoogleLocationButton
             GOOGLE_MAPS_API_KEY={GOOGLE_MAPS_API_KEY}
             value={destination}
             setValue={setDestination}
           />
+        </Grid>
+        <Grid xs={12} sx={{ mt: 1 }}>
+          <InputLabel htmlFor="destination">
+            <b>Veículo:</b>
+          </InputLabel>
+          <Autocomplete
+            disablePortal
+            id="cars"
+            options={cars}
+            sx={{ width: 400 }}
+            renderInput={(params) => <TextField {...params} name="cars" required />}
+          />
+        </Grid>
+        <Grid xs={6} sx={{ mt: 2 }}>
+          <Button variant="contained" type="submit" fullWidth size="large">
+            Simular
+          </Button>
+        </Grid>
+        <Grid xs={6} sx={{ mt: 2 }}>
+          <Typography gutterBottom variant="h6" align="center" fontWeight={400}>
+            Custo: R${custo}
+          </Typography>
         </Grid>
       </Grid>
     </Box>

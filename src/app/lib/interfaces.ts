@@ -61,6 +61,7 @@ export interface CarEditProps {
 
 export interface GoogleMapsFormProps {
   GOOGLE_MAPS_API_KEY: any;
+  cars: any;
 }
 
 export interface MainTextMatchedSubstrings {

@@ -98,7 +98,7 @@ export default function GoogleMaps({
   return (
     <Autocomplete
       id="google-map"
-      sx={{ width: 300 }}
+      sx={{ width: 400 }}
       getOptionLabel={(option) =>
         typeof option === "string" ? option : option.description
       }
@@ -117,7 +117,7 @@ export default function GoogleMaps({
         setInputValue(newInputValue);
       }}
       renderInput={(params) => (
-        <TextField {...params} fullWidth />
+        <TextField {...params} fullWidth required />
       )}
       renderOption={(props, option) => {
         let matches = [];
