@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from 'zod';
 
 export const CarPostSchema = z.object({
   description: z.string({

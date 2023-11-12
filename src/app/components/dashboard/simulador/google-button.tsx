@@ -1,9 +1,10 @@
-import LocationOnIcon from "@mui/icons-material/LocationOn";
-import parse from "autosuggest-highlight/parse";
-import { debounce } from "@mui/material/utils";
-import { GoogleMapsButtonProps, PlaceType } from "@/app/lib/interfaces";
-import { useEffect, useMemo, useRef, useState } from "react";
-import { Autocomplete, Box, Grid, TextField, Typography } from "@mui/material";
+import parse from 'autosuggest-highlight/parse';
+import { useEffect, useMemo, useRef, useState } from 'react';
+
+import { GoogleMapsButtonProps, PlaceType } from '@/app/lib/interfaces';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import { Autocomplete, Box, Grid, TextField, Typography } from '@mui/material';
+import { debounce } from '@mui/material/utils';
 
 function loadScript(src: string, position: HTMLElement | null, id: string) {
   if (!position) {
