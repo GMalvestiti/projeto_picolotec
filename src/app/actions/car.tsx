@@ -1,10 +1,11 @@
 "use server";
-import { revalidatePath, unstable_noStore as noStore } from "next/cache";
-import { redirect } from "next/navigation";
-import { sql } from "@vercel/postgres";
+import { revalidatePath, unstable_noStore as noStore } from 'next/cache';
+import { redirect } from 'next/navigation';
 
-import { CarMake, CarModel } from "@/app/lib/interfaces";
-import { CarDeleteSchema, CarPostSchema, CarPutSchema } from "./schemas";
+import { CarMake, CarModel } from '@/app/lib/interfaces';
+import { sql } from '@vercel/postgres';
+
+import { CarDeleteSchema, CarPostSchema, CarPutSchema } from './schemas';
 
 const BASE_URL = process.env.BASE_URL;
 

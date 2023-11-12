@@ -1,6 +1,6 @@
-import { getCarsData } from "@/app/actions/car";
-import SimulateForm from "@/app/components/dashboard/simulador/simulate-form";
-import { Container, Paper, Typography } from "@mui/material";
+import { getCarsData } from '@/app/actions/car';
+import SimulateForm from '@/app/components/dashboard/simulador/simulate-form';
+import { Container, Paper, Typography } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 
 function changeData(jsonData: any) {

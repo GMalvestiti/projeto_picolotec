@@ -1,7 +1,6 @@
-import Link from "next/link";
+import Link from 'next/link';
 
-import Button from "@mui/material/Button";
-import { Container, Paper, Typography } from "@mui/material";
+import { Button, Container, Paper, Typography } from '@mui/material';
 
 export default function Page() {
   return (
@@ -23,7 +22,7 @@ export default function Page() {
           size="large"
           LinkComponent={Link}
         >
-          Logout
+          Sair
         </Button>
       </Paper>
     </Container>

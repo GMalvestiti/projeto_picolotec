@@ -1,9 +1,9 @@
-import Link from "next/link";
+import Link from 'next/link';
 
-import { Button, Container, Divider, Paper, Typography } from "@mui/material";
-import Grid from "@mui/material/Grid";
-import GitHubIcon from "@mui/icons-material/GitHub";
-import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import GitHubIcon from '@mui/icons-material/GitHub';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import { Button, Container, Divider, Paper, Typography } from '@mui/material';
+import Grid from '@mui/material/Grid';
 
 export default function Home() {
   return (
@@ -26,12 +26,23 @@ export default function Home() {
           <Grid item xs={12}>
             <Button
               variant="contained"
-              href="/dashboard"
+              href="/login"
               size="large"
               LinkComponent={Link}
               fullWidth
             >
               Login
+            </Button>
+          </Grid>
+          <Grid item xs={12}>
+            <Button
+              variant="contained"
+              href="/signup"
+              size="large"
+              LinkComponent={Link}
+              fullWidth
+            >
+              Criar Conta
             </Button>
           </Grid>
         </Grid>

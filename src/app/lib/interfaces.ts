@@ -1,6 +1,7 @@
+import { Dispatch, SetStateAction } from 'react';
+
 import { GridColDef } from '@mui/x-data-grid/models/colDef/gridColDef';
 import { GridRowsProp } from '@mui/x-data-grid/models/gridRows';
-import { Dispatch, SetStateAction } from 'react';
 
 export interface SideNavProps {
   open: boolean;

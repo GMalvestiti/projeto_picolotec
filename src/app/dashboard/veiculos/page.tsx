@@ -3,9 +3,9 @@
 import { useEffect, useState } from 'react';
 import { useDebounce } from 'use-debounce';
 
+import { getCarsData } from '@/app/actions/car';
 import SearchBar from '@/app/components/dashboard/search/search';
 import DataTable from '@/app/components/dashboard/table/table';
-import { getCarsData } from '@/app/actions/car';
 import { Button, Container, Paper, Typography } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 import { GridColDef, GridRowParams, GridRowsProp } from '@mui/x-data-grid';
