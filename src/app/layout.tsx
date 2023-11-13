@@ -1,8 +1,8 @@
-import './globals.css';
+import "./globals.css";
 
-import * as React from 'react';
+import * as React from "react";
 
-import ThemeRegistry from '@/app/components/ThemeRegistry/ThemeRegistry';
+import ThemeRegistry from "@/app/components/ThemeRegistry/ThemeRegistry";
 
 import type { Metadata } from "next";
 

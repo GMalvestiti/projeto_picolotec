@@ -1,12 +1,12 @@
 "use server";
-import { revalidatePath, unstable_noStore as noStore } from 'next/cache';
-import { redirect } from 'next/navigation';
+import { revalidatePath, unstable_noStore as noStore } from "next/cache";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
-import { CarMake, CarModel } from '@/app/lib/interfaces';
-import { sql } from '@vercel/postgres';
+import { CarMake, CarModel } from "@/app/lib/interfaces";
+import { sql } from "@vercel/postgres";
 
-import { CarDeleteSchema, CarPostSchema, CarPutSchema } from './schemas';
-import { cookies } from 'next/headers';
+import { CarDeleteSchema, CarPostSchema, CarPutSchema } from "./schemas";
 
 const BASE_URL = process.env.BASE_URL;
 
@@ -16,7 +16,9 @@ export async function getCarsData(query: string) {
     const BASE_URL = process.env.BASE_URL;
 
     const cookieStore = cookies();
-    const userId = cookieStore.get("user_id") ? cookieStore.get("user_id") : undefined;
+    const userId = cookieStore.get("user_id")
+      ? cookieStore.get("user_id")
+      : undefined;
 
     if (userId === undefined) {
       return [];
@@ -68,7 +70,7 @@ export async function getCarData(uuid: string) {
 
     if (!response.ok) {
       throw new Error(
-        `[ERRO] Falha ao buscar dados. Status: ${response.status}`
+        `[ERRO] Falha ao buscar dados. Status: ${response.status}`,
       );
     }
 
@@ -112,7 +114,7 @@ export async function getModels(query: string): Promise<string[]> {
 
     const data = await response.json();
     const modelsArray: string[] = data.results.map(
-      (item: CarModel) => item.model
+      (item: CarModel) => item.model,
     );
     const uniqueModelsSet = new Set(modelsArray);
     const uniqueModelsArray = Array.from(uniqueModelsSet);
@@ -120,7 +122,7 @@ export async function getModels(query: string): Promise<string[]> {
   } catch (error) {
     console.error(
       "[ERROR]: An error occurred while fetching car models",
-      error
+      error,
     );
     return ["erro"];
   }
@@ -145,7 +147,9 @@ export async function postCar(formData: FormData) {
   const { description, make, model, cost } = validation.data;
 
   const cookieStore = cookies();
-  const userId = cookieStore.get("user_id") ? cookieStore.get("user_id") : undefined;
+  const userId = cookieStore.get("user_id")
+    ? cookieStore.get("user_id")
+    : undefined;
 
   if (userId == undefined) {
     return {

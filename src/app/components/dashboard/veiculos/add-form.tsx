@@ -1,13 +1,21 @@
 "use client";
 
-import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import Link from "next/link";
+import { useEffect, useState } from "react";
 
-import { postCar } from '@/app/actions/car';
-import { CarMake, CarModel } from '@/app/lib/interfaces';
-import KeyboardBackspaceRoundedIcon from '@mui/icons-material/KeyboardBackspaceRounded';
-import { Autocomplete, Box, Button, Chip, Input, InputLabel, TextField } from '@mui/material';
-import Grid from '@mui/material/Unstable_Grid2';
+import { postCar } from "@/app/actions/car";
+import { CarMake, CarModel } from "@/app/lib/interfaces";
+import KeyboardBackspaceRoundedIcon from "@mui/icons-material/KeyboardBackspaceRounded";
+import {
+  Autocomplete,
+  Box,
+  Button,
+  Chip,
+  Input,
+  InputLabel,
+  TextField,
+} from "@mui/material";
+import Grid from "@mui/material/Unstable_Grid2";
 
 async function getModels(query: string) {
   try {
@@ -19,7 +27,7 @@ async function getModels(query: string) {
 
     const data = await response.json();
     const modelsArray: string[] = data.results.map(
-      (item: CarModel) => item.model
+      (item: CarModel) => item.model,
     );
     const uniqueModelsSet = new Set(modelsArray);
     const uniqueModelsArray = Array.from(uniqueModelsSet);
@@ -28,7 +36,7 @@ async function getModels(query: string) {
   } catch (error) {
     console.error(
       "[ERROR]: An error occurred while fetching car models",
-      error
+      error,
     );
   }
 }
@@ -50,7 +58,7 @@ export default function VeiculosAddForm() {
 
         const data = await response.json();
         const makesArray: string[] = data.results.map(
-          (item: CarMake) => item.make
+          (item: CarMake) => item.make,
         );
         const uniqueMakesSet = new Set(makesArray);
         const uniqueMakesArray = Array.from(uniqueMakesSet);
@@ -59,7 +67,7 @@ export default function VeiculosAddForm() {
       } catch (error) {
         console.error(
           "[ERROR]: An error occurred while fetching car makes",
-          error
+          error,
         );
       }
     }

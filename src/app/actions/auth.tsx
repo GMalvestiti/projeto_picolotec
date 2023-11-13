@@ -1,20 +1,20 @@
 "use server";
+import bcrypt from "bcrypt";
 import { revalidatePath } from "next/cache";
-import { signIn, signOut } from "@/app/auth";
-
-import { UserPostSchema } from './schemas';
-import { redirect } from "next/navigation";
-import { sql } from "@vercel/postgres";
-import bcrypt from 'bcrypt';
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
+
+import { signIn, signOut } from "@/app/auth";
+import { sql } from "@vercel/postgres";
+
+import { UserPostSchema } from "./schemas";
 
 export async function authenticate(
   prevState: string | undefined,
-  formData: FormData
+  formData: FormData,
 ) {
   try {
     await signIn("credentials", Object.fromEntries(formData));
-
   } catch (error) {
     if ((error as Error).message.includes("CredentialsSignin")) {
       return "CredentialSignin";
@@ -33,14 +33,13 @@ export async function signUp(formData: FormData) {
   if (!validatedFields.success) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
-      message: 'Campos Faltando. Falha ao criar usuário.',
+      message: "Campos Faltando. Falha ao criar usuário.",
     };
   }
 
   const { name, email, password } = validatedFields.data;
 
   try {
-
     const hashedPassword = await bcrypt.hash(password, bcrypt.genSaltSync(10));
 
     await sql`
@@ -49,7 +48,7 @@ export async function signUp(formData: FormData) {
     `;
   } catch (error) {
     return {
-      message: '[ERRO]: Falha ao criar usuário.',
+      message: "[ERRO]: Falha ao criar usuário.",
     };
   }
 

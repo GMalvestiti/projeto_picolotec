@@ -1,12 +1,12 @@
 "use client";
 
-import Link from 'next/link';
+import Link from "next/link";
 
-import { deleteCar } from '@/app/actions/car';
-import { UuidProps } from '@/app/lib/interfaces';
-import KeyboardBackspaceRoundedIcon from '@mui/icons-material/KeyboardBackspaceRounded';
-import { Box, Button, Input } from '@mui/material';
-import Grid from '@mui/material/Unstable_Grid2';
+import { deleteCar } from "@/app/actions/car";
+import { UuidProps } from "@/app/lib/interfaces";
+import KeyboardBackspaceRoundedIcon from "@mui/icons-material/KeyboardBackspaceRounded";
+import { Box, Button, Input } from "@mui/material";
+import Grid from "@mui/material/Unstable_Grid2";
 
 export default function VeiculosDeleteForm({ uuid }: Readonly<UuidProps>) {
   return (

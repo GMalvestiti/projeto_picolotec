@@ -1,9 +1,17 @@
 "use client";
 
-import KeyboardBackspaceRoundedIcon from '@mui/icons-material/KeyboardBackspaceRounded';
-import { Box, Button, Grid, Input, InputLabel, Typography } from '@mui/material';
-import { useFormState, useFormStatus } from 'react-dom';
-import { authenticate } from '@/app/actions/auth';
+import { useFormState, useFormStatus } from "react-dom";
+
+import { authenticate } from "@/app/actions/auth";
+import KeyboardBackspaceRoundedIcon from "@mui/icons-material/KeyboardBackspaceRounded";
+import {
+  Box,
+  Button,
+  Grid,
+  Input,
+  InputLabel,
+  Typography,
+} from "@mui/material";
 
 export default function LoginForm() {
   const [code, action] = useFormState(authenticate, undefined);
@@ -40,11 +48,11 @@ export default function LoginForm() {
           />
         </Grid>
       </Grid>
-      {code === 'CredentialSignin' && (
-            <Typography variant="body1" sx={{ color: "red", mt: 1 }}>
-              Credenciais inválidas
-            </Typography>
-          )}
+      {code === "CredentialSignin" && (
+        <Typography variant="body1" sx={{ color: "red", mt: 1 }}>
+          Credenciais inválidas
+        </Typography>
+      )}
       <Grid container spacing={2} sx={{ mt: 2 }}>
         <Grid item xs={6}>
           <Button
@@ -67,9 +75,15 @@ export default function LoginForm() {
 
 function LoginButton() {
   const { pending } = useFormStatus();
- 
+
   return (
-    <Button variant="contained" type="submit" size="large" fullWidth aria-disabled={pending}>
+    <Button
+      variant="contained"
+      type="submit"
+      size="large"
+      fullWidth
+      aria-disabled={pending}
+    >
       Entrar
     </Button>
   );

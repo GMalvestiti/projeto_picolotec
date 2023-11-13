@@ -1,5 +1,5 @@
-import VeiculosDeleteForm from '@/app/components/dashboard/veiculos/delete-form';
-import { Container, Paper, Typography } from '@mui/material';
+import VeiculosDeleteForm from "@/app/components/dashboard/veiculos/delete-form";
+import { Container, Paper, Typography } from "@mui/material";
 
 export default function Page({
   params,

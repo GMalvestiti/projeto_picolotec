@@ -1,6 +1,6 @@
-import { TableProps } from '@/app/lib/interfaces';
-import { createTheme } from '@mui/material';
-import { DataGrid, ptBR } from '@mui/x-data-grid';
+import { TableProps } from "@/app/lib/interfaces";
+import { createTheme } from "@mui/material";
+import { DataGrid, ptBR } from "@mui/x-data-grid";
 
 import type {} from "@mui/x-data-grid/themeAugmentation";
 

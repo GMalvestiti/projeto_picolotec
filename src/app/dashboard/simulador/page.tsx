@@ -1,7 +1,7 @@
-import { getCarsData } from '@/app/actions/car';
-import SimulateForm from '@/app/components/dashboard/simulador/simulate-form';
-import { Container, Paper, Typography } from '@mui/material';
-import Grid from '@mui/material/Unstable_Grid2';
+import { getCarsData } from "@/app/actions/car";
+import SimulateForm from "@/app/components/dashboard/simulador/simulate-form";
+import { Container, Paper, Typography } from "@mui/material";
+import Grid from "@mui/material/Unstable_Grid2";
 
 function changeData(jsonData: any) {
   if (jsonData === undefined) {
@@ -14,7 +14,7 @@ function changeData(jsonData: any) {
     let newData = {
       id: element.uuid,
       label: element.description,
-      cost: element.cost
+      cost: element.cost,
     };
     result.push(newData);
   });
@@ -22,7 +22,10 @@ function changeData(jsonData: any) {
 }
 
 export default async function Page() {
-  let [api_key, cars] = await Promise.all([process.env.GOOGLEMAPS_API_KEY, getCarsData("")]);
+  let [api_key, cars] = await Promise.all([
+    process.env.GOOGLEMAPS_API_KEY,
+    getCarsData(""),
+  ]);
   cars = changeData(cars);
 
   return (

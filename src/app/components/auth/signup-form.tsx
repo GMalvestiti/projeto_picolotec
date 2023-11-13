@@ -1,8 +1,8 @@
 "use client";
 
-import { signUp } from '@/app/actions/auth';
-import KeyboardBackspaceRoundedIcon from '@mui/icons-material/KeyboardBackspaceRounded';
-import { Box, Button, Grid, Input, InputLabel } from '@mui/material';
+import { signUp } from "@/app/actions/auth";
+import KeyboardBackspaceRoundedIcon from "@mui/icons-material/KeyboardBackspaceRounded";
+import { Box, Button, Grid, Input, InputLabel } from "@mui/material";
 
 export default function LoginForm() {
   return (

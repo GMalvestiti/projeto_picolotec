@@ -1,8 +1,8 @@
-import { SideNavProps } from '@/app/lib/interfaces';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import IconButton from '@mui/material/IconButton';
-import { styled } from '@mui/material/styles';
+import { SideNavProps } from "@/app/lib/interfaces";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import IconButton from "@mui/material/IconButton";
+import { styled } from "@mui/material/styles";
 
 const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
