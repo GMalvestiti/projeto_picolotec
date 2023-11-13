@@ -6,6 +6,7 @@ import { CarMake, CarModel } from '@/app/lib/interfaces';
 import { sql } from '@vercel/postgres';
 
 import { CarDeleteSchema, CarPostSchema, CarPutSchema } from './schemas';
+import { cookies } from 'next/headers';
 
 const BASE_URL = process.env.BASE_URL;
 
@@ -14,7 +15,14 @@ export async function getCarsData(query: string) {
   try {
     const BASE_URL = process.env.BASE_URL;
 
-    let endpoint;
+    const cookieStore = cookies();
+    const userId = cookieStore.get("user_id") ? cookieStore.get("user_id") : undefined;
+
+    if (userId === undefined) {
+      return [];
+    }
+
+    /*let endpoint;
     if (query == "") {
       endpoint = `${BASE_URL}/api/car`;
     } else {
@@ -27,9 +35,19 @@ export async function getCarsData(query: string) {
       throw new Error(
         `[ERRO] Falha ao buscar dados. Status: ${response.status}`
       );
+    }*/
+
+    let data;
+    if (query.length == 0) {
+      data = await sql`SELECT * FROM cars WHERE user_id = ${userId.value};`;
+    } else {
+      query = "%" + query + "%";
+      data = await sql`
+        SELECT * FROM cars
+        WHERE user_id = ${userId.value} AND description ILIKE ${query} OR make ILIKE ${query} OR model ILIKE ${query};
+      `;
     }
 
-    let data = await response.json();
     data = data.rows;
 
     return data;
@@ -126,10 +144,19 @@ export async function postCar(formData: FormData) {
 
   const { description, make, model, cost } = validation.data;
 
+  const cookieStore = cookies();
+  const userId = cookieStore.get("user_id") ? cookieStore.get("user_id") : undefined;
+
+  if (userId == undefined) {
+    return {
+      message: "[ERRO]: Falha ao adicionar veículo.",
+    };
+  }
+
   try {
     await sql`
-      INSERT INTO cars (description, make, model, cost)
-      VALUES (${description}, ${make}, ${model}, ${cost})
+      INSERT INTO cars (user_id, description, make, model, cost)
+      VALUES (${userId.value}, ${description}, ${make}, ${model}, ${cost})
     `;
   } catch (error) {
     return {

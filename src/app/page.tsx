@@ -14,7 +14,7 @@ export default function Home() {
       sx={{
         display: "flex",
         flexDirection: "column",
-        minHeight: "100vh", // Set minimum height to full viewport height
+        minHeight: "100vh",
         justifyContent: "center",
       }}
     >

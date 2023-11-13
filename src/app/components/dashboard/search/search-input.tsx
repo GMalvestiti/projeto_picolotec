@@ -27,6 +27,7 @@ export default function SearchInput({
   return (
     <StyledInput
       value={query}
+      type="search"
       onChange={handleQueryChange}
     />
   );

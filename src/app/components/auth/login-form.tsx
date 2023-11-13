@@ -1,15 +1,15 @@
 "use client";
 
 import KeyboardBackspaceRoundedIcon from '@mui/icons-material/KeyboardBackspaceRounded';
-import { Box, Button, Grid, Input, InputLabel } from '@mui/material';
+import { Box, Button, Grid, Input, InputLabel, Typography } from '@mui/material';
+import { useFormState, useFormStatus } from 'react-dom';
+import { authenticate } from '@/app/actions/auth';
 
 export default function LoginForm() {
-  const handleSubmit = function (formData: FormData) {
-    console.log(formData);
-  };
+  const [code, action] = useFormState(authenticate, undefined);
 
   return (
-    <Box component="form" action={handleSubmit} sx={{ mt: 2 }}>
+    <Box component="form" action={action} sx={{ mt: 2 }}>
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <InputLabel htmlFor="email">
@@ -26,12 +26,12 @@ export default function LoginForm() {
           />
         </Grid>
         <Grid item xs={12}>
-          <InputLabel htmlFor="senha">
+          <InputLabel htmlFor="password">
             <b>Senha:</b>
           </InputLabel>
           <Input
-            id="senha"
-            name="senha"
+            id="password"
+            name="password"
             sx={{ mt: 1 }}
             type="password"
             placeholder="Senha"
@@ -40,6 +40,11 @@ export default function LoginForm() {
           />
         </Grid>
       </Grid>
+      {code === 'CredentialSignin' && (
+            <Typography variant="body1" sx={{ color: "red", mt: 1 }}>
+              Credenciais inválidas
+            </Typography>
+          )}
       <Grid container spacing={2} sx={{ mt: 2 }}>
         <Grid item xs={6}>
           <Button
@@ -53,11 +58,19 @@ export default function LoginForm() {
           </Button>
         </Grid>
         <Grid item xs={6}>
-          <Button variant="contained" type="submit" size="large" fullWidth>
-            Entrar
-          </Button>
+          <LoginButton />
         </Grid>
       </Grid>
     </Box>
+  );
+}
+
+function LoginButton() {
+  const { pending } = useFormStatus();
+ 
+  return (
+    <Button variant="contained" type="submit" size="large" fullWidth aria-disabled={pending}>
+      Entrar
+    </Button>
   );
 }

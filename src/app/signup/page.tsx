@@ -1,6 +1,6 @@
 import { Container, Paper, Typography } from '@mui/material';
 
-import SignUpForm from '../components/auth/signup-form';
+import SignUpForm from '@/app/components/auth/signup-form';
 
 export default function Page() {
   return (
