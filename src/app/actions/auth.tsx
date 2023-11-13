@@ -8,6 +8,7 @@ import { signIn, signOut } from "@/app/auth";
 import { sql } from "@vercel/postgres";
 
 import { UserPostSchema } from "./schemas";
+import { User } from "@/app/lib/definitions";
 
 export async function authenticate(
   prevState: string | undefined,
@@ -20,6 +21,16 @@ export async function authenticate(
       return "CredentialSignin";
     }
     throw error;
+  }
+}
+
+async function getUser(email: string): Promise<User | undefined> {
+  try {
+    const user = await sql<User>`SELECT * from USERS where email=${email}`;
+    return user.rows[0];
+  } catch (error) {
+    console.error("Failed to fetch user:", error);
+    throw new Error("Failed to fetch user.");
   }
 }
 
@@ -40,6 +51,13 @@ export async function signUp(formData: FormData) {
   const { name, email, password } = validatedFields.data;
 
   try {
+    const user = await getUser(email);
+    if (user) {
+      return {
+        message: "[Erro]: Email já cadastrado.",
+      };
+    }
+
     const hashedPassword = await bcrypt.hash(password, bcrypt.genSaltSync(10));
 
     await sql`
