@@ -1,12 +1,24 @@
 "use client";
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
-import { GoogleMapsFormProps, PlaceType, RouteDistanceResult } from '@/app/lib/interfaces';
-import { Autocomplete, Box, Button, Input, InputLabel, TextField, Typography } from '@mui/material';
-import Grid from '@mui/material/Unstable_Grid2';
+import {
+  GoogleMapsFormProps,
+  PlaceType,
+  RouteDistanceResult,
+} from "@/app/lib/interfaces";
+import {
+  Autocomplete,
+  Box,
+  Button,
+  Input,
+  InputLabel,
+  TextField,
+  Typography,
+} from "@mui/material";
+import Grid from "@mui/material/Unstable_Grid2";
 
-import GoogleLocationButton from './google-button';
+import GoogleLocationButton from "./google-button";
 
 const initialData: PlaceType = {
   place_id: "",
@@ -16,7 +28,7 @@ const initialData: PlaceType = {
 
 async function calculateDistance(
   originPlaceId: string,
-  destinationPlaceId: string
+  destinationPlaceId: string,
 ): Promise<RouteDistanceResult | null> {
   const directionsService = new google.maps.DirectionsService();
 
@@ -43,7 +55,7 @@ async function calculateDistance(
           console.error("Directions request failed with status:", status);
           reject(null);
         }
-      }
+      },
     );
   });
 }
@@ -72,7 +84,9 @@ export default function SimulateForm({
             });
             if (car.length > 0) {
               const gas = formData.get("gas");
-              const cost = Number(gas) * (Number(result.distance.toFixed(2)) / car[0].cost);
+              const cost =
+                Number(gas) *
+                (Number(result.distance.toFixed(2)) / car[0].cost);
               setCusto(Number(cost.toFixed(2)));
             } else {
               console.error("[Erro]: Nenhum carro encontrado.");

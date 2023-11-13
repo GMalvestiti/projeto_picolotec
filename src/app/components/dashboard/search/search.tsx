@@ -1,8 +1,8 @@
-import { SearchBarProps } from '@/app/lib/interfaces';
-import { alpha, styled } from '@mui/material/styles';
+import { SearchBarProps } from "@/app/lib/interfaces";
+import { alpha, styled } from "@mui/material/styles";
 
-import SearchInput from './search-input';
-import SearchWrapper from './search-wrapper';
+import SearchInput from "./search-input";
+import SearchWrapper from "./search-wrapper";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",

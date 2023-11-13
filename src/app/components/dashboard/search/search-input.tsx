@@ -1,8 +1,8 @@
 "use client";
 
-import { SearchBarProps } from '@/app/lib/interfaces';
-import Input from '@mui/material/Input';
-import { styled } from '@mui/material/styles';
+import { SearchBarProps } from "@/app/lib/interfaces";
+import Input from "@mui/material/Input";
+import { styled } from "@mui/material/styles";
 
 const StyledInput = styled(Input)(({ theme }) => ({
   color: "inherit",
@@ -25,9 +25,6 @@ export default function SearchInput({
   handleQueryChange,
 }: Readonly<SearchBarProps>) {
   return (
-    <StyledInput
-      value={query}
-      onChange={handleQueryChange}
-    />
+    <StyledInput value={query} type="search" onChange={handleQueryChange} />
   );
 }

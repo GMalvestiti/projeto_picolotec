@@ -1,10 +1,10 @@
-import parse from 'autosuggest-highlight/parse';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import parse from "autosuggest-highlight/parse";
+import { useEffect, useMemo, useRef, useState } from "react";
 
-import { GoogleMapsButtonProps, PlaceType } from '@/app/lib/interfaces';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
-import { Autocomplete, Box, Grid, TextField, Typography } from '@mui/material';
-import { debounce } from '@mui/material/utils';
+import { GoogleMapsButtonProps, PlaceType } from "@/app/lib/interfaces";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+import { Autocomplete, Box, Grid, TextField, Typography } from "@mui/material";
+import { debounce } from "@mui/material/utils";
 
 function loadScript(src: string, position: HTMLElement | null, id: string) {
   if (!position) {
@@ -23,7 +23,7 @@ const autocompleteService = { current: null };
 export default function GoogleMaps({
   GOOGLE_MAPS_API_KEY,
   value,
-  setValue
+  setValue,
 }: Readonly<GoogleMapsButtonProps>) {
   const [inputValue, setInputValue] = useState("");
   const [options, setOptions] = useState<readonly PlaceType[]>([]);
@@ -34,7 +34,7 @@ export default function GoogleMaps({
       loadScript(
         `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&libraries=places`,
         document.querySelector("head"),
-        "google-maps"
+        "google-maps",
       );
     }
 
@@ -46,16 +46,16 @@ export default function GoogleMaps({
       debounce(
         (
           request: { input: string },
-          callback: (results?: readonly PlaceType[]) => void
+          callback: (results?: readonly PlaceType[]) => void,
         ) => {
           (autocompleteService.current as any).getPlacePredictions(
             request,
-            callback
+            callback,
           );
         },
-        400
+        400,
       ),
-    []
+    [],
   );
 
   useEffect(() => {
@@ -117,9 +117,7 @@ export default function GoogleMaps({
       onInputChange={(event, newInputValue) => {
         setInputValue(newInputValue);
       }}
-      renderInput={(params) => (
-        <TextField {...params} fullWidth required />
-      )}
+      renderInput={(params) => <TextField {...params} fullWidth required />}
       renderOption={(props, option) => {
         let matches = [];
         let parts: any[] = [];
@@ -132,7 +130,7 @@ export default function GoogleMaps({
             matches.map((match: any) => [
               match.offset,
               match.offset + match.length,
-            ])
+            ]),
           );
         }
 
@@ -156,7 +154,9 @@ export default function GoogleMaps({
                   </Box>
                 ))}
                 <Typography variant="body2" color="text.secondary">
-                  {option.structured_formatting ? option.structured_formatting.secondary_text : ""}
+                  {option.structured_formatting
+                    ? option.structured_formatting.secondary_text
+                    : ""}
                 </Typography>
               </Grid>
             </Grid>

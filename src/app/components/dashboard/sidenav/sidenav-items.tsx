@@ -1,13 +1,13 @@
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
-import { SideNavItemsProps } from '@/app/lib/interfaces';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import { useTheme } from '@mui/material/styles';
+import { SideNavItemsProps } from "@/app/lib/interfaces";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import { useTheme } from "@mui/material/styles";
 
 export default function SideNavItems({
   open,
@@ -27,11 +27,12 @@ export default function SideNavItems({
               minHeight: 48,
               justifyContent: open ? "initial" : "center",
               px: 2.5,
-              backgroundColor: pathname === item.href ? theme.palette.primary.main : "white",
+              backgroundColor:
+                pathname === item.href ? theme.palette.primary.main : "white",
               color: pathname === item.href ? "white" : "black",
-              '&:hover': {
+              "&:hover": {
                 color: "white",
-                backgroundColor: theme.palette.primary.light
+                backgroundColor: theme.palette.primary.light,
               },
             }}
           >

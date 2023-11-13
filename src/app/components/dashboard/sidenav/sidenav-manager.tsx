@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from 'react';
+import { useState } from "react";
 
-import SideNav from './sidenav';
-import TopBar from './topbar';
+import SideNav from "./sidenav";
+import TopBar from "./topbar";
 
 export default function SideNavManager() {
   const [open, setOpen] = useState(false);
@@ -18,10 +18,7 @@ export default function SideNavManager() {
 
   return (
     <>
-      <TopBar
-        open={open}
-        handleDrawerOpen={handleDrawerOpen}
-      />
+      <TopBar open={open} handleDrawerOpen={handleDrawerOpen} />
       <SideNav
         open={open}
         handleDrawerClose={handleDrawerClose}

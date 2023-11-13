@@ -1,8 +1,8 @@
 "use server";
 
-import { getCarData, getMakes, getModels } from '@/app/actions/car';
-import VeiculosEditForm from '@/app/components/dashboard/veiculos/edit-form';
-import { Container, Paper, Typography } from '@mui/material';
+import { getCarData, getMakes, getModels } from "@/app/actions/car";
+import VeiculosEditForm from "@/app/components/dashboard/veiculos/edit-form";
+import { Container, Paper, Typography } from "@mui/material";
 
 export default async function Page({
   params,

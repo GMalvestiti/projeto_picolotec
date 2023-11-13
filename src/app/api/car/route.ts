@@ -1,6 +1,6 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from "next/server";
 
-import { sql } from '@vercel/postgres';
+import { sql } from "@vercel/postgres";
 
 export async function GET(request: NextRequest) {
   try {
@@ -30,7 +30,7 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json(
       JSON.stringify({ error: "Internal server error" }),
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
@@ -48,13 +48,13 @@ export async function PUT(request: NextRequest) {
       WHERE id = ${id};
     `;
 
-    return NextResponse.json({ message: "Updated car" },{ status: 200 });
+    return NextResponse.json({ message: "Updated car" }, { status: 200 });
   } catch (error) {
     console.error("[ERROR]: Internal server error", error);
 
     return NextResponse.json(
       JSON.stringify({ error: "Internal server error" }),
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
@@ -77,7 +77,7 @@ export async function DELETE(request: NextRequest) {
     console.error("[ERROR]: Internal server error", error);
     return NextResponse.json(
       JSON.stringify({ error: "Internal server error" }),
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

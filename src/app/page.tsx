@@ -1,9 +1,9 @@
-import Link from 'next/link';
+import Link from "next/link";
 
-import GitHubIcon from '@mui/icons-material/GitHub';
-import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import { Button, Container, Divider, Paper, Typography } from '@mui/material';
-import Grid from '@mui/material/Grid';
+import GitHubIcon from "@mui/icons-material/GitHub";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import { Button, Container, Divider, Paper, Typography } from "@mui/material";
+import Grid from "@mui/material/Grid";
 
 export default function Home() {
   return (
@@ -14,7 +14,7 @@ export default function Home() {
       sx={{
         display: "flex",
         flexDirection: "column",
-        minHeight: "100vh", // Set minimum height to full viewport height
+        minHeight: "100vh",
         justifyContent: "center",
       }}
     >

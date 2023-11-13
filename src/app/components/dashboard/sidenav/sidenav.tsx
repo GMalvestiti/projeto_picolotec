@@ -1,13 +1,13 @@
-import { SideNavProps } from '@/app/lib/interfaces';
-import CalculateOutlinedIcon from '@mui/icons-material/CalculateOutlined';
-import DirectionsCarFilledOutlinedIcon from '@mui/icons-material/DirectionsCarFilledOutlined';
-import SpaceDashboardOutlinedIcon from '@mui/icons-material/SpaceDashboardOutlined';
-import Divider from '@mui/material/Divider';
-import MuiDrawer from '@mui/material/Drawer';
-import { CSSObject, styled, Theme } from '@mui/material/styles';
+import { SideNavProps } from "@/app/lib/interfaces";
+import CalculateOutlinedIcon from "@mui/icons-material/CalculateOutlined";
+import DirectionsCarFilledOutlinedIcon from "@mui/icons-material/DirectionsCarFilledOutlined";
+import SpaceDashboardOutlinedIcon from "@mui/icons-material/SpaceDashboardOutlined";
+import Divider from "@mui/material/Divider";
+import MuiDrawer from "@mui/material/Drawer";
+import { CSSObject, styled, Theme } from "@mui/material/styles";
 
-import SideNavHeader from './sidenav-header';
-import SideNavItems from './sidenav-items';
+import SideNavHeader from "./sidenav-header";
+import SideNavItems from "./sidenav-items";
 
 const drawerWidth = 240;
 
@@ -53,22 +53,22 @@ const items = [
   {
     text: "Dashboard",
     href: "/dashboard",
-    icon: <SpaceDashboardOutlinedIcon />
+    icon: <SpaceDashboardOutlinedIcon />,
   },
   {
     text: "Simulador",
     href: "/dashboard/simulador",
-    icon: <CalculateOutlinedIcon />
-  }
+    icon: <CalculateOutlinedIcon />,
+  },
 ];
 
 const items_registro = [
   {
     text: "Veículos",
     href: "/dashboard/veiculos",
-    icon: <DirectionsCarFilledOutlinedIcon />
-  }
-]
+    icon: <DirectionsCarFilledOutlinedIcon />,
+  },
+];
 
 export default function SideNav({
   open,
@@ -83,15 +83,9 @@ export default function SideNav({
         handleDrawerOpen={handleDrawerOpen}
       />
       <Divider />
-      <SideNavItems
-        open={open}
-        items={items}
-      />
+      <SideNavItems open={open} items={items} />
       <Divider />
-      <SideNavItems
-        open={open}
-        items={items_registro}
-      />
+      <SideNavItems open={open} items={items_registro} />
     </Drawer>
   );
 }

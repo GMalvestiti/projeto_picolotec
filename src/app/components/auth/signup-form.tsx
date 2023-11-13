@@ -1,9 +1,12 @@
-import KeyboardBackspaceRoundedIcon from '@mui/icons-material/KeyboardBackspaceRounded';
-import { Box, Button, Grid, Input, InputLabel } from '@mui/material';
+"use client";
+
+import { signUp } from "@/app/actions/auth";
+import KeyboardBackspaceRoundedIcon from "@mui/icons-material/KeyboardBackspaceRounded";
+import { Box, Button, Grid, Input, InputLabel } from "@mui/material";
 
 export default function LoginForm() {
   return (
-    <Box component="form" sx={{ mt: 2 }}>
+    <Box component="form" sx={{ mt: 2 }} action={signUp}>
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <InputLabel htmlFor="nome">
