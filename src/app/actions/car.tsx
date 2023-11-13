@@ -46,7 +46,7 @@ export async function getCarsData(query: string) {
       query = "%" + query + "%";
       data = await sql`
         SELECT * FROM cars
-        WHERE user_id = ${userId.value} AND description ILIKE ${query} OR make ILIKE ${query} OR model ILIKE ${query};
+        WHERE user_id = ${userId.value} AND (description ILIKE ${query} OR make ILIKE ${query} OR model ILIKE ${query});
       `;
     }
 
