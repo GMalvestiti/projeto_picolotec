@@ -15,5 +15,4 @@
 
 Para acessar e utilizar:
 
-(Devido a problemas temporários, favor acessar utilizando o modo Anônimo caso usar Google Chrome)
 - [ProDriver](https://projeto-prodriver.vercel.app/)
